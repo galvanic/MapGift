@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map of Stockholm</title>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.css" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js"></script>
+  <script src="http://mapstraction.com/mxn/build/latest/mxn.js?(leaflet)" type="text/javascript"></script>
+  <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.2"></script>
+  <style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin:0; padding:0 }
+  #map { height: 100%; }
+  </style>
+</head>
+<body onload="load_map()">
+  <div id="map"></div>
+  <script type="text/javascript">
+  function load_map() {
+    var map = new mxn.Mapstraction('map', 'leaflet'); 
+    var latlon = new mxn.LatLonPoint(59.3344, 18.0485);
+    map.setCenterAndZoom(latlon, 12);
+    map.addTileLayer("http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg");
+  }
+  </script>
+</body>
+</html> 
