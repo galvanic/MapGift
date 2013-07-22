@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>Justine and Nicole in Stockholm</name>
+  <description><![CDATA[September 2012 - June 2013]]></description>
+  <Style id="style23">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style29">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style25">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style2">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style10">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style4">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style22">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style26">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style16">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style7">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style31">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style19">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style5">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style3">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style8">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style11">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style33">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style18">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style24">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style30">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style14">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style32">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style13">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style28">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style27">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style20">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style21">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style15">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style6">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style17">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style9">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style1">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="style12">
+    <IconStyle>
+      <Icon>
+        <href>http://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Placemark>
+    <name>Pax</name>
+    <description><![CDATA[<div dir="ltr">Tooooo many memories to put them in this text-window!<br>Just to mention a few: Paxparties, barbecue, sauna, Filmpaxdags, cooking in our kitchen, pancakes, drinks in your room and many many more!</div>]]></description>
+    <styleUrl>#style23</styleUrl>
+    <Point>
+      <coordinates>18.001623,59.347988,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>The Golden Gate</name>
+    <description><![CDATA[<div dir="ltr">A beautiful view over the water and parts of Kungsholmen. We discovered this place just in summer, so we missed the view in winter. Remember drinking wine with Christine at her last night. We had cooked very delicious food together and it was still a little bit cold outside.</div>]]></description>
+    <styleUrl>#style29</styleUrl>
+    <Point>
+      <coordinates>17.999350,59.345039,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Running Track</name>
+    <description><![CDATA[<div dir="ltr">This is one of the places where we were running together when it was still winter. The air was very cold and I was glad that we were both wearing headband.</div>]]></description>
+    <styleUrl>#style25</styleUrl>
+    <Point>
+      <coordinates>17.974277,59.350323,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Climbing hall</name>
+    <description><![CDATA[<div dir="ltr">I liked climbing with you a lot because it was fun and you showed me useful tricks! I hope we can do it together in the future :) Chilling out in the sauna after climbing was very relaxing and I enjoyed talking to you</div>]]></description>
+    <styleUrl>#style2</styleUrl>
+    <Point>
+      <coordinates>18.015909,59.356857,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Karolinska Institutet</name>
+    <description><![CDATA[<div dir="ltr">We didn't have classes together, but we spend time at pub-nights and during the introduction-days. I remember that's where we shared the first kanelbulle ;)</div>]]></description>
+    <styleUrl>#style10</styleUrl>
+    <Point>
+      <coordinates>18.029165,59.347862,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Amit</name>
+    <description><![CDATA[Amit prepared an amazing meal for the Filpaxdags-group. We watched Fightclub and the sad asian cartoon - don't remember the name. We missed the last metro and it took us ages home, haha]]></description>
+    <styleUrl>#style4</styleUrl>
+    <Point>
+      <coordinates>17.946318,59.409443,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>First Fleamarket</name>
+    <description><![CDATA[This is the first fleamarket, where we went to together. We bought so much stuff, that it was really difficult to carry it home (my awesome fleece-jacket, red high-heels, etc). You bought the big pillows!]]></description>
+    <styleUrl>#style22</styleUrl>
+    <Point>
+      <coordinates>18.001389,59.305729,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Stampen</name>
+    <description><![CDATA[The Jazzbar that Annette recommended. It was a cool night, Timo and his German friends were with us.]]></description>
+    <styleUrl>#style26</styleUrl>
+    <Point>
+      <coordinates>18.067902,59.325119,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Tyresta</name>
+    <description><![CDATA[<div dir="ltr">Hiking-Day! I'm glad that we did the hiking-trip so early during the year, because it soon started snowing afterwards. I wish I could attach the picture of you and the little frog we found :) </div>]]></description>
+    <styleUrl>#style16</styleUrl>
+    <Point>
+      <coordinates>18.240309,59.168098,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Stadshuset</name>
+    <description><![CDATA[<div dir="ltr">We both attended the City Hall Reception in Stadshuset. (this event was kind of useless, haha)</div>]]></description>
+    <styleUrl>#style7</styleUrl>
+    <Point>
+      <coordinates>18.054873,59.327278,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Natcho-Place</name>
+    <description><![CDATA[The friday's-all-you-can-eat-Natcho-buffet!&nbsp;]]></description>
+    <styleUrl>#style31</styleUrl>
+    <Point>
+      <coordinates>18.066629,59.314480,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Debaser Medis</name>
+    <description><![CDATA[We just went once togehter to debaser, because I was so lazy for going out this year...sorry! But that night I enjoyed having predrinks in your room and then dancing to electro-music. The next morning I heard Dinh's voice on our corridor, oh lá lá ;)]]></description>
+    <styleUrl>#style19</styleUrl>
+    <Point>
+      <coordinates>18.072617,59.314445,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Strand</name>
+    <description><![CDATA[We went out for dancing and drinks with Annette and Dinh :)]]></description>
+    <styleUrl>#style5</styleUrl>
+    <Point>
+      <coordinates>18.032770,59.314304,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Kaknästornet</name>
+    <description><![CDATA[<div dir="ltr">After going shopping downton, we spend a beautiful day in the park listening to the music, laying in the grass and dancing. Afterwards we walked to Karlaplan across the fields</div>]]></description>
+    <styleUrl>#style3</styleUrl>
+    <Point>
+      <coordinates>18.126583,59.335224,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Stadsbibliotek</name>
+    <description><![CDATA[<div dir="ltr">I first time I went togehter with you to the library at odenplan. I was freaking out that day and so glad that you took me out to town - thank you! Afterwards I decided to get a card for the library and read many swedish books duing the year.</div>]]></description>
+    <styleUrl>#style8</styleUrl>
+    <Point>
+      <coordinates>18.054850,59.343269,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Sturekatten</name>
+    <description><![CDATA[A lovely coffé where we had cake together. Nice decoration!]]></description>
+    <styleUrl>#style11</styleUrl>
+    <Point>
+      <coordinates>18.075235,59.334591,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Café Muggen</name>
+    <description><![CDATA[We were looking a while for a coffé after shopping on Södermalm and finally found this one.&nbsp;]]></description>
+    <styleUrl>#style33</styleUrl>
+    <Point>
+      <coordinates>18.071012,59.318409,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Fleamarket Drottningatan</name>
+    <description><![CDATA[This place-lable is representing all the nice shops/stores where we had been together in Drottningatan. Including the fleamarket, the sex-shop, Stikki Niki, fleamarket at Hötorget, shoe-stores, and many more]]></description>
+    <styleUrl>#style18</styleUrl>
+    <Point>
+      <coordinates>18.058653,59.336426,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Vete Katten</name>
+    <description><![CDATA[You showed me this cosy café and we were having cake with Yvonne and Teresa. It was the semla-week. I took my German friends to it and they loved it as well :)]]></description>
+    <styleUrl>#style24</styleUrl>
+    <Point>
+      <coordinates>18.058517,59.334167,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Jägergatan</name>
+    <description><![CDATA[We were invited by Tiago and had a cool night. I was really glad when you came, because I was kind of sad that day.&nbsp;]]></description>
+    <styleUrl>#style30</styleUrl>
+    <Point>
+      <coordinates>18.054346,59.309200,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Ethiopian Restaurant</name>
+    <description><![CDATA[We were having the ethiopian menu toegether with Medih, Yonis, Jimita, and Christine. It a really cool night and the first time that I tried the ethiopian food. Unfortunately Moe wasn't able to join us.]]></description>
+    <styleUrl>#style14</styleUrl>
+    <Point>
+      <coordinates>18.044395,59.331249,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Klättercentret Telefonplan</name>
+    <description><![CDATA[Alex' friend Daniel let us in for climbing on friday-nights. This climbing hall is bigger than the one in Solna, but quite far away. It was cool to meet Alex and his friends]]></description>
+    <styleUrl>#style32</styleUrl>
+    <Point>
+      <coordinates>17.991007,59.299023,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Globen - Crystal Castles</name>
+    <description><![CDATA[Very cool concert and very cool band! Just got to know Crystal castles because you told me about them. I listened a lot to them during running. I danced the whole night at the concert and wish it would have been longer :)<br><br>]]></description>
+    <styleUrl>#style13</styleUrl>
+    <Point>
+      <coordinates>18.082554,59.294270,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Hermans</name>
+    <description><![CDATA[One of the last places we had been together :( I had been there before and knew that you are going to like the restaurant! I'm glad that we were the ones sitting at the window, because the view is so beautiful and the weather was nice.&nbsp;]]></description>
+    <styleUrl>#style28</styleUrl>
+    <Point>
+      <coordinates>18.083239,59.317505,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Hellasgården</name>
+    <description><![CDATA[<div dir="ltr">Jumping in the ice-cold water after sauna! "Coolest" expirience during my stay in Sweden ;) Dinh and his friend were with us and I liked the group a lot. I'm glad that we took a picture at the busstop, because the naked-photo of us jumping didn't work.</div>]]></description>
+    <styleUrl>#style27</styleUrl>
+    <Point>
+      <coordinates>18.160507,59.289623,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Vapiano</name>
+    <description><![CDATA[Pizza after the outdoor-sauna with Dinh and his friend. We bought a bottle of wine and the dinner was perfect!]]></description>
+    <styleUrl>#style20</styleUrl>
+    <Point>
+      <coordinates>18.067736,59.323563,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Techno-Bar</name>
+    <description><![CDATA[I don't remember the name of the bar, but I do remember that I was drunk and I enjoyed dancing with you. We thought we could buy 4 Redbull-Wodka-Drinks for 160kr....haha]]></description>
+    <styleUrl>#style21</styleUrl>
+    <Point>
+      <coordinates>18.061008,59.318806,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>PyLaydies, Spotify</name>
+    <description><![CDATA[Without you I would have never started Python. I didn't understand much at the Meetup, but it was still a great day!]]></description>
+    <styleUrl>#style15</styleUrl>
+    <Point>
+      <coordinates>18.063486,59.342148,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Technofestival</name>
+    <description><![CDATA[<div dir="ltr">We spend the afternoon of the Nationalday at the Technofestival on långholmen and were climbing a little bit on the way home</div>]]></description>
+    <styleUrl>#style6</styleUrl>
+    <Point>
+      <coordinates>18.031548,59.321865,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Akalla by</name>
+    <description><![CDATA[This is the place where we spend the Midsommar-Friday! It was beautiful and Swedish :)]]></description>
+    <styleUrl>#style17</styleUrl>
+    <Point>
+      <coordinates>17.911299,59.412914,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Vampire Lounge</name>
+    <description><![CDATA[<div dir="ltr">Having cocktails with friends from your work!</div>]]></description>
+    <styleUrl>#style9</styleUrl>
+    <Point>
+      <coordinates>18.077192,59.313629,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Fleamarket Hornstull</name>
+    <description><![CDATA[We shopped some sommer-clothes and met people from your work. Hanging out in the park afterwards, felt like sommer had finally started!]]></description>
+    <styleUrl>#style1</styleUrl>
+    <Point>
+      <coordinates>18.030882,59.314930,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Coffé</name>
+    <description><![CDATA[<div dir="ltr">Having coffe and cake after work</div>]]></description>
+    <styleUrl>#style12</styleUrl>
+    <Point>
+      <coordinates>18.083834,59.312962,0.000000</coordinates>
+    </Point>
+  </Placemark>
+</Document>
+</kml>

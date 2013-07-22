@@ -5,7 +5,12 @@
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.css" />
   <script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js"></script>
   <script src="http://mapstraction.com/mxn/build/latest/mxn.js?(leaflet)" type="text/javascript"></script>
+  <!--
   <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.2"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  -->
+
   <style type="text/css">
   html { height: 100% }
   body { height: 100%; margin:0; padding:0 }
@@ -19,7 +24,15 @@
     var map = new mxn.Mapstraction('map', 'leaflet'); 
     var latlon = new mxn.LatLonPoint(59.3344, 18.0485);
     map.setCenterAndZoom(latlon, 12);
-    map.addTileLayer("http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg");
+
+    //map.addTileLayer("http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg");
+
+    var mk = new mxn.Marker(new mxn.LatLonPoint(59.3341, 18.0585));
+    //mk.setIcon('pepperoni.png', [40,24]);
+    //mk.setShadowIcon('sombrero-shadow.png', [53,24]);
+    map.addMarker(mk);
+
+    map.addSmallControls();
   }
   </script>
 </body>
