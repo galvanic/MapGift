@@ -175,12 +175,13 @@ def kml2py(filename):
 
 
 
-def makeMap(provider="stamen", mapbox="central", zoom=13):
+def makeMap(provider="watercolor", mapbox="central", zoom=13):
 	"""
 	zoom:	integer, the zoom level (altitude)
 			min 12; max 15 in this case
 
 	"""
+	zoom = int(zoom)
 
 	shortcuts = {	'osm': 		'OPENSTREETMAP',
 					'watercolor':'STAMEN_WATERCOLOR',
@@ -210,11 +211,10 @@ def makeMap(provider="stamen", mapbox="central", zoom=13):
 							left_upper_corner,
 							right_lower_corner,
 							zoom)
-	
 	return m
 
 
-def drawMap(m, verbose):
+def drawMap(m, verbose=False):
 	map_image = m.draw(verbose)
 	return map_image
 
@@ -378,12 +378,73 @@ def assembleMap(map_type, area, zoom, placemark_params, verbose=False):
 
 	return map_image
 
+
+def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None):
+	"""
+	map1:	instance of Map, the higher altitude map on which the viewport is pasted
+	map2:	instance of Map, the lower altitude map
+			or
+			2-value tuple, 	the viewport coordinates
+							it contains 2 2-value tuples:
+							(left_upper_corner, right_lower_corner)
+							eg. ((lat1, lon1), (lat2, lon2))
+
+	Improvements
+
+		Ugh, really don't like the global viewport variable thing
+		What if I want to have 2 viewports ? Ok, it works.
+		Still, it feels meh, maybe reduce and/or map would have been cleaner.
+	"""
+	if type(map2) != tuple:
+		pass
+		# find the geographical coordinates of the map2 (ie the viewport)
+
+	left_upper, right_lower = map2
+	right_upper = left_upper[0], + right_lower[1],
+	left_lower  = right_lower[0], + left_upper[1],
+
+	box = [left_upper, right_upper, right_lower, left_lower]
+
+	# find the equivalent x,y coordinates of the viewport on the map image of map1
+	global viewport
+	viewport = [map1.locationPoint(MM.Geo.Location(*coor)) for coor in box]
+	viewport = [tuple(map(int, (point.x, point.y))) for point in viewport]
+	viewport += viewport[0],
+
+	def bigger(rectangle, recursion):
+		if recursion == 1:
+			return rectangle
+		left_upper, right_upper, right_lower, left_lower = rectangle[:-1]
+		left_upper 	= ( left_upper[0]-1,  left_upper[1]-1)
+		right_upper = (right_upper[0]+1, right_upper[1]-1)
+		right_lower = (right_lower[0]+1, right_lower[1]+1)
+		left_lower  = ( left_lower[0]-1,  left_lower[1]+1)
+
+		new = (left_upper, right_upper, right_lower, left_lower, left_upper)
+		global viewport
+		viewport += new
+		return bigger(new, recursion-1)
+
+	bigger(viewport, thickness)
+
+	# draw the viewport
+	draw = ImageDraw.Draw(map_image)
+	draw.line(viewport, fill=colour)
+
+	return map_image
+
+
 def main():
 	placemark_params = ("circle", 100, "transparent")	# 0.2 for zoom15
 
-	m = assembleMap(("watercolor", "watercolor"), "wTyresta", sys.argv[1], placemark_params)
+	m 	= makeMap("watercolor", "wTyresta", 12)
+
+	img = assembleMap(("watercolor", "watercolor"), "wTyresta", sys.argv[1], placemark_params)
+
+	img = addViewport(m, img, MAP_BOX["central"], 5)
+	img = addViewport(m, img, MAP_BOX["wKista"], 10)
 	
-	saveMap(m)
+	saveMap(img)
 	beep()
 	time.sleep(1)
 	beep()
@@ -391,10 +452,14 @@ def main():
 
 
 if __name__ == "__main__":
-	sys.exit(main())
-	
 
-	
+	sys.exit(main())
+
+
+
+
+
+
 
 
 
