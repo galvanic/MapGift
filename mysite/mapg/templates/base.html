@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'mapg/style.css' %}" />
+    <title>{% block title %}Make your own maps{% endblock %}</title>
+</head>
+
+<body>
+	<header>
+		<ul>
+			<li><a href="{% url 'mapg:archive' %}">Archive</a></li>
+			<li><a href="{% url 'mapg:index' %}">Home Page</a></li>
+		</ul>
+	</header>
+    {% block content %}{% endblock %}
+</body>
+</html>

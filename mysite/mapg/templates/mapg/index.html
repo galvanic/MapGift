@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Make map{% endblock %}
+{% block content %}
+
+
+<h1>Make a map</h1>
+
+<form action="{% url 'mapg:assemble' next_map_id %}" method="post">
+	{% csrf_token %}
+	<p>
+		<!-- <label for="where">Where</label>
+		<input type="text" name="where" id="where" placeholder="best city: London ;)" autofocus /> -->
+		Where
+		<input type="radio" name="where" value="london" id="london" />
+		<label>London</label>
+		<input type="radio" name="where" value="paris" id="paris" checked/>
+		<label>Paris</label>
+		<input type="radio" name="where" value="stockholm" id="stockholm" />
+		<label>Stockholm</label>
+		<br />
+		
+		Zoom level
+		<input type="radio" name="zoom" value="10" id="10" checked/>
+		<label>City view</label>
+		<input type="radio" name="zoom" value="12" id="12" />
+		<label>Street view</label>
+		<br />
+		
+		Design
+		<input type="radio" name="design" value="watercolour" id="watercolour" />
+		<label>Stamen watercolour</label>
+		<input type="radio" name="design" value="toner" id="toner" checked/>
+		<label>Stamen Toner</label>
+
+	</p>
+	<input type="submit" value="Generate Map n°{{ next_map_id }}" />
+</form>
+
+
+{% endblock %}

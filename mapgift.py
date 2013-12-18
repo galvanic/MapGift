@@ -100,7 +100,6 @@ import sys
 sys.path.append("/Users/jc5809/Dropbox/Programming/Learning Python/My python scripts/justine pymodules")
 from jc import makeSwedishDate as sw
 from jc import makeSmaller
-from jc import beep
 import time	# to put date in saved images' filename
 from pprint import pprint
 
@@ -122,7 +121,7 @@ MAP_BOX = {
 
 # First, I need to convert the Geo data into Python objects I can use
 
-KMLfile = "JustineandNicoleinStockholm.kml"
+KMLfile = "/Users/jc5809/Dropbox/Programming/Projects/MapGift/JustineandNicoleinStockholm.kml"
 
 
 def kml2py(filename):
@@ -332,9 +331,14 @@ def addLayer(image, layer, mask=None):
 	return image
 
 
-def saveMap(m, filename="map"):
-	filename += str(sw(time.localtime()))+".png"
-	m.save(filename)
+def saveMap(m, where="", filename="map", inc_date=True, verbose=False):
+	if inc_date:
+		filename += str(sw(time.localtime()))+".png"
+	else:
+		filename += ".png"
+	m.save(where+filename)
+	if verbose:
+		print "Image saved."
 	return
 
 def assembleMap(map_type, area, zoom, placemark_params, verbose=False):
@@ -439,23 +443,19 @@ def main():
 
 	m 	= makeMap("watercolor", "wTyresta", 12)
 
-	img = assembleMap(("watercolor", "watercolor"), "wTyresta", sys.argv[1], placemark_params)
+	img = assembleMap(("watercolor", "watercolor"), "wTyresta", 12, placemark_params)
 
 	img = addViewport(m, img, MAP_BOX["central"], 5)
 	img = addViewport(m, img, MAP_BOX["wKista"], 10)
-	
-	saveMap(img)
-	beep()
-	time.sleep(1)
-	beep()
-	return
+	return img
 
 
 if __name__ == "__main__":
 
-	sys.exit(main())
-
-
+	# sys.exit(main())
+	m = main()
+	saveMap(m)
+	m.show()
 
 
 

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Detail{% endblock %}
+{% block content %}
+
+
+<h1>{{ map.area_name }}</h1>
+<ul>
+{% for placemark in map.placemark_set.all %}
+    <li>{{ placemark.placemark_title }}</li>
+{% endfor %}
+</ul>
+<img src="../../static/mapg/images/map_images/map{{ map.id }}.png">
+
+
+{% endblock %}
+
+<!-- There should be a whole bit of code where if the map image doesn't exist (because I can't store too many), it gets re-generated.
+Although I don't think this will be used to that point. Would be cool to try and code though. -->

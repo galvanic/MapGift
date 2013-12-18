@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Detail{% endblock %}
+{% block content %}
+
+
+{% if map_list %}
+    <ul>
+    {% for map in map_list %}
+        <li><a href="{% url 'mapg:detail' map.id %}">{{ map.area_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No maps are available.</p>
+{% endif %}
+
+
+{% endblock %}
