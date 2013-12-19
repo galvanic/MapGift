@@ -12,7 +12,10 @@ import mapgift
 
 def update_map_list():
     map_list = Map.objects.order_by('-pub_date')
-    context = {'map_list': map_list, 'next_map_id': len(map_list)+1, }
+    context = { 'map_list': map_list,
+                'next_map_id': len(map_list)+1,
+                'providers': mapgift.PROVIDERS,
+                }
     return context
 
 
@@ -25,22 +28,24 @@ def archive(request):
 def assemble(request, map_id):
     # if there are no values or the values don't work, use default ones, for the moment, should re-ask at least location
     try:
+        where  = request.POST['where'].title()
+        zoom   = int(request.POST['zoom'])
+        design = request.POST['design']
         m = Map(
-            area_name = request.POST['where'],
-            zoom = int(request.POST['zoom']),
-            map_provider = request.POST['design'],
+            area_name = where,
+            zoom = zoom,
+            map_provider = design,
             pub_date = timezone.now()
             )
         m.save() # add map to the database
-        m_img = mapgift.main()
-    except (Placemark.DoesNotExist):
+        m_img = mapgift.main(map_provider=design, area_name=where, zoom=zoom)
+    except Exception:
         return render(request, 'mapg/index.html', update_map_list())
     else:
         # ok this url is a disaster, wtf
         mapgift.saveMap(m_img, "/Users/jc5809/Dropbox/Programming/Projects/MapGift/mysite/mapg/static/mapg/images/map_images/", "map"+str(map_id), False, True)
-        # create the map object and put it in the database !
 
-    return HttpResponseRedirect(reverse('mapg:detail', args=(map_id,)))
+    return HttpResponseRedirect(reverse('mapg:detail', args=(map_id, )))
 
 def detail(request, map_id):
     m = get_object_or_404(Map, pk=map_id)

@@ -10,27 +10,32 @@
 	<p>
 		<!-- <label for="where">Where</label>
 		<input type="text" name="where" id="where" placeholder="best city: London ;)" autofocus /> -->
-		Where
-		<input type="radio" name="where" value="london" id="london" />
-		<label>London</label>
-		<input type="radio" name="where" value="paris" id="paris" checked/>
-		<label>Paris</label>
+		<span class="label">Where</span>
+		<input type="radio" name="where" value="london" id="london" checked/>
+		<label for="london">London</label>
+		<input type="radio" name="where" value="paris" id="paris" />
+		<label for="paris">Paris</label>
 		<input type="radio" name="where" value="stockholm" id="stockholm" />
-		<label>Stockholm</label>
+		<label for="stockholm">Stockholm</label>
 		<br />
 		
-		Zoom level
-		<input type="radio" name="zoom" value="10" id="10" checked/>
-		<label>City view</label>
-		<input type="radio" name="zoom" value="12" id="12" />
-		<label>Street view</label>
+		<span class="label">Zoom level</span>
+		<input type="radio" name="zoom" value="12" id="12" checked/>
+		<label for="12">City view</label>
+		<input type="radio" name="zoom" value="14" id="14" />
+		<label for="14">Street view</label>
 		<br />
 		
-		Design
-		<input type="radio" name="design" value="watercolour" id="watercolour" />
-		<label>Stamen watercolour</label>
-		<input type="radio" name="design" value="toner" id="toner" checked/>
-		<label>Stamen Toner</label>
+		<!-- Automatically generate this map provider list from the mapgift.py file -->
+		<span class="label">Design</span>
+		{% for shortcut, name in providers.iteritems %}
+			<input type="radio" name="design" value="{{ shortcut }}" id="{{ shortcut }}" />
+			<label for="{{ shortcut }}">{{ name|lower }}</label>
+		{% endfor %}
+		<br />
+
+		<span class="label">Add placemarks</span>
+		<!-- Allow option to upload kml file -->
 
 	</p>
 	<input type="submit" value="Generate Map n°{{ next_map_id }}" />

@@ -4,13 +4,23 @@
 
 
 {% if map_list %}
-    <ul>
+    <ol>
     {% for map in map_list %}
-        <li><a href="{% url 'mapg:detail' map.id %}">{{ map.area_name }}</a></li>
+        <li>
+        <ol>
+            <a href="{% url 'mapg:detail' map.id %}">
+            <li>{{ map.area_name }}</li>
+            <li>Zoom {{ map.zoom }}</li>
+            <li>{{ map.provider }}</li>
+            <li>{{ map.pub_date }}</li>
+            <li class="img"><img src="../../static/mapg/images/map_images/map{{ map.id }}.png"></li>
+            </a>
+        </ol>
+        </li>
     {% endfor %}
-    </ul>
+    </ol>
 {% else %}
-    <p>No maps are available.</p>
+    <p>No maps are available. Why don't you <a href="{% url 'mapg:index' %}">make one</a> ?</p>
 {% endif %}
 
 

@@ -24,6 +24,12 @@ Features	There should be a few map tile styles (basemap providers)
 			with web APIs, and doing web mapping.
 
 
+How this works
+		
+		It's important to make the distinction between the map instance, and the map image.
+
+
+
 Future Improvements
 
 - Support for other types of geographic data such as JSON
@@ -86,7 +92,6 @@ More ideas for map design
 
 
 Idea for how to organise code:
-(What will I want to change later? technique)
 1. 	Draw a few map examples like the ones detailed above.
 	Make some very different and very similar ones.
 2. 	Write step by step code of how to make that map, for each map.
@@ -116,8 +121,28 @@ MAP_BOX = {
 	"Sweden":		((65.422, 0.483), 	(51.917, 35.640)),
 	"northEurope":	((70.348, -17.051), (43.005, 53.262)),
 	"Europe":		((77.542, -52.207), (20.961, 88.418)),
-	"world":		((85.021, -122.695),(-29.841, 158.555))
+	"world":		((85.021, -122.695),(-29.841, 158.555)),
+
+	"Stockholm":	((59.382, 17.931), 	(59.277, 18.206)),
+	"London":		((51.535, -0.239),	(51.45,	 -0.046)),
+	"Paris":		((48.902, 2.241),	(48.810, 2.429)),
+
+}	# "area_name":	(lat lon of top left corner, lat lon bottom right corner)
+
+CENTRE = {
+	"Stockholm":	(59.329444, 18.068611),
+	"London":		(51.507222, -0.1275),
+	"Paris":		(48.8567,	2.3508),
 }
+
+PROVIDERS = {	'osm': 		'OPENSTREETMAP',
+				'watercolor':'STAMEN_WATERCOLOR',
+				'toner':	'STAMEN_TONER',
+				'lines':	'STAMEN_TONER_LINES',
+				'lite':		'STAMEN_TONER_LITE',
+				'labels':	'STAMEN_TONER_LABELS',
+}
+
 
 # First, I need to convert the Geo data into Python objects I can use
 
@@ -135,7 +160,7 @@ def kml2py(filename):
 
 				I've chosen to use dictionaries:
 				[{'name':name, 'coor': (lat,lon), 'desc': description},
-				{'name':name, 'coor': (lat,lon), 'desc': description}]
+				 {'name':name, 'coor': (lat,lon), 'desc': description}]
 	"""
 	with open(filename, "r") as kmlfile:
 		"""
@@ -174,46 +199,44 @@ def kml2py(filename):
 
 
 
-def makeMap(provider="watercolor", mapbox="central", zoom=13):
+def makeMap(provider="watercolor", area_name="central", zoom=13, by_centre=False, map_size=(800,600)):
 	"""
 	zoom:	integer, the zoom level (altitude)
 			min 12; max 15 in this case
 
+	Returns a map instance (not image!)
 	"""
 	zoom = int(zoom)
 
-	shortcuts = {	'osm': 		'OPENSTREETMAP',
-					'watercolor':'STAMEN_WATERCOLOR',
-					'toner':	'STAMEN_TONER',
-					'lines':	'STAMEN_TONER_LINES',
-					'lite':		'STAMEN_TONER_LITE',
-					'labels':	'STAMEN_TONER_LABELS',}
-	provider = shortcuts[provider.lower()]
+	provider = PROVIDERS[provider.lower()]
 	provider = MM.builtinProviders[provider]()
-	"""
-	centre	 = (59.329444, 18.068611)	# lat (North), long (East)
-	width	 = 800
-	height	 = 600
+	
+	if by_centre:
+		centre	 = CENTRE[area_name]
+		width	 = map_size[0]
+		height	 = map_size[1]
 
-	m = MM.mapByCenterZoom(	provider,
-							MM.Geo.Location(*centre),
-							zoom,
-							MM.Core.Point(width, height))
-	print m.pointLocation(MM.Core.Point(0,0))
-	print m.pointLocation(MM.Core.Point(width,height))
-	"""
-	map_box = MAP_BOX[mapbox]
-	left_upper_corner  = MM.Geo.Location(*map_box[0])
-	right_lower_corner = MM.Geo.Location(*map_box[1])
+		m = MM.mapByCenterZoom(	provider,
+								MM.Geo.Location(*centre),
+								zoom,
+								MM.Core.Point(width, height))
+		print m.pointLocation(MM.Core.Point(0,0))			# to get the upper left corner geo coordinates
+		print m.pointLocation(MM.Core.Point(width,height))	# to get the lower right corner geo coordinates
+	
+	else: # by box
+		map_box = MAP_BOX[area_name]
+		left_upper_corner  = MM.Geo.Location(*map_box[0])
+		right_lower_corner = MM.Geo.Location(*map_box[1])
 
-	m = MM.mapByExtentZoom(	provider,
-							left_upper_corner,
-							right_lower_corner,
-							zoom)
+		m = MM.mapByExtentZoom(	provider,
+								left_upper_corner,
+								right_lower_corner,
+								zoom)
 	return m
 
 
 def drawMap(m, verbose=False):
+	"""Takes a map instance and 'draws' it by calling all the map tiles and stitching them together."""
 	map_image = m.draw(verbose)
 	return map_image
 
@@ -438,15 +461,16 @@ def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None)
 	return map_image
 
 
-def main():
+def main(map_provider="watercolor", area_name="Stockholm", zoom=10):
 	placemark_params = ("circle", 100, "transparent")	# 0.2 for zoom15
 
-	m 	= makeMap("watercolor", "wTyresta", 12)
+	m 	= makeMap(map_provider, area_name, zoom, by_centre=True, map_size=(400,300))
+	img = drawMap(m)
 
-	img = assembleMap(("watercolor", "watercolor"), "wTyresta", 12, placemark_params)
+	# img = assembleMap(("watercolor", "watercolor"), "wTyresta", 12, placemark_params)
 
-	img = addViewport(m, img, MAP_BOX["central"], 5)
-	img = addViewport(m, img, MAP_BOX["wKista"], 10)
+	# img = addViewport(m, img, MAP_BOX["central"], 5)
+	# img = addViewport(m, img, MAP_BOX["wKista"], 10)
 	return img
 
 
