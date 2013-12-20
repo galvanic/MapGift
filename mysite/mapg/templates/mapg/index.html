@@ -2,42 +2,68 @@
 {% block title %}Make map{% endblock %}
 {% block content %}
 
-
-<h1>Make a map</h1>
-
 <form action="{% url 'mapg:assemble' next_map_id %}" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<p>
-		<!-- <label for="where">Where</label>
-		<input type="text" name="where" id="where" placeholder="best city: London ;)" autofocus /> -->
-		<span class="label">Where</span>
-		<input type="radio" name="where" value="london" id="london" checked/>
-		<label for="london">London</label>
-		<input type="radio" name="where" value="paris" id="paris" />
-		<label for="paris">Paris</label>
-		<input type="radio" name="where" value="stockholm" id="stockholm" />
-		<label for="stockholm">Stockholm</label>
-		<br />
+	<ul>
+		<li>
+			<!-- <label for="where">Where</label>
+			<input type="text" name="where" id="where" placeholder="best city: London ;)" autofocus /> -->
+			<div class="label">Where</div>
+			<ul>
+				<li>
+					<input type="radio" name="where" value="london" id="london" />
+					<label for="london">London</label>
+				</li>
+				<li>
+					<input type="radio" name="where" value="paris" id="paris" />
+					<label for="paris">Paris</label>
+				</li>
+				<li>
+					<input type="radio" name="where" value="stockholm" id="stockholm" />
+					<label for="stockholm">Stockholm</label>
+				</li>
+			</ul>
+		</li>
+	
+		<li>
+			<div class="label">Zoom level</div>
+			<ul>
+				<li>
+					<input type="radio" name="zoom" value="12" id="12" />
+					<label for="12">City view</label>
+				</li>
+				<li>
+					<input type="radio" name="zoom" value="14" id="14" />
+					<label for="14">Street view</label>
+				</li>
+			</ul>
+		</li>
 		
-		<span class="label">Zoom level</span>
-		<input type="radio" name="zoom" value="12" id="12" checked/>
-		<label for="12">City view</label>
-		<input type="radio" name="zoom" value="14" id="14" />
-		<label for="14">Street view</label>
-		<br />
-		
-		<!-- Automatically generate this map provider list from the mapgift.py file -->
-		<span class="label">Design</span>
-		{% for shortcut, name in providers.iteritems %}
-			<input type="radio" name="design" value="{{ shortcut }}" id="{{ shortcut }}" />
-			<label for="{{ shortcut }}">{{ name|lower }}</label>
-		{% endfor %}
-		<br />
+		<li>
+			<!-- Automatically generate this map provider list from the mapgift.py file -->
+			<div class="label">Design</div>
+			<ul>
+				{% for shortcut, name in providers.iteritems %}
+				<li>
+					<input type="radio" name="design" value="{{ shortcut }}" id="{{ shortcut }}" />
+					<label for="{{ shortcut }}">{{ name|lower }}</label>
+				</li>
+				{% endfor %}
+			</ul>
+		</li>
 
-		<span class="label"><label for="placemarks">Add placemarks</label></span>
-		<input type="file" name="placemarks" id="placemarks" />
+		<li>
+			<div class"optional field">
+			<div class="label"><label for="placemarks">Add placemarks</label></div>
+			<ul>
+				<li>
+					<input type="file" name="placemarks" id="placemarks" />
+				</li>
+			</ul>
+			</div>
+		</li>
+	</ul>
 
-	</p>
 	<input type="submit" name="submit" value="Generate Map n°{{ next_map_id }}"/>
 </form>
 
