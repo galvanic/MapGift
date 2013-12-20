@@ -31,9 +31,12 @@ def assemble(request, map_id):
         where  = request.POST['where'].title()
         zoom   = int(request.POST['zoom'])
         design = request.POST['design']
-        kmlfile = request.FILES["placemarks"]   # need to do verification on this!
+        if request.FILES:
+            kmlfile = request.FILES["placemarks"].read()   # need to do verification on this!
+        else:
+            kmlfile = ""
 
-        m_img = mapgift.main(map_provider=design, area_name=where, zoom=zoom, by_centre=True, kmlfile=kmlfile.read())
+        m_img = mapgift.main(map_provider=design, area_name=where, zoom=zoom, by_centre=True, kmlfile=kmlfile)
 
         m = Map(
             area_name = where,
