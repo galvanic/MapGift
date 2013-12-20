@@ -143,17 +143,25 @@ PROVIDERS = {	'osm': 		'OPENSTREETMAP',
 				'labels':	'STAMEN_TONER_LABELS',
 }
 
-
-# First, I need to convert the Geo data into Python objects I can use
-
-KMLfile = "/Users/jc5809/Dropbox/Programming/Projects/MapGift/JustineandNicoleinStockholm.kml"
+KMLfile = "JustineandNicoleinStockholm.kml"
 
 
-def kml2py(filename):
+def openkml(filename):
+	with open(filename, "r") as kmlfile:
+		"""
+		if kmlfile.info().gettype() == 'text/xml':
+			file = kmlfile.read()
+		else:
+			raise TypeError
+		"""
+		kmldata = kmlfile.read()
+	return kmldata
+
+def kml2py(kmldata):
 	"""
 	Converts KML data to usable Python objects.
 
-	filename:	A .kml file
+	kmldata:	An open and read .kml file
 
 	Returns:	A list of Python objects
 				[py, py]
@@ -162,31 +170,30 @@ def kml2py(filename):
 				[{'name':name, 'coor': (lat,lon), 'desc': description},
 				 {'name':name, 'coor': (lat,lon), 'desc': description}]
 	"""
-	with open(filename, "r") as kmlfile:
-		"""
-		if kmlfile.info().gettype() == 'text/xml':
-			file = kmlfile.read()
-		else:
-			raise TypeError
-		"""
-		file = kmlfile.read()
+	# check if the file has been opened and open it if not ?
 
 	# find all <Placemark>...</Placemark> tags
-	match1 = re.findall(r'<Placemark>.*?</Placemark>', file, re.DOTALL)
+	match1 = re.findall(r'<Placemark>.*?</Placemark>', kmldata, re.DOTALL)
 	# match1 is a list of code
 
 	# find name, description, lat, lon
 	# and organise it into a list of dicts
 	placemarks = list()
-	for placemark in match1:
+	for i, placemark in enumerate(match1):
 		code = placemark.decode('utf-8')
 		pldict = dict()
 
 		match = re.search(r'<name>([,\w\s\-]*?)</name>', code, re.UNICODE)
-		pldict['name'] = match.group(1)
+		if match:
+			pldict['name'] = match.group(1)
+		else:
+			pldict['name'] = "Placemark %d" % i
 
 		match = re.search(r'CDATA\[(<div dir="ltr">)?(.*?)(</div>)?\]\]', code)
-		pldict['desc'] = match.group(2)
+		if match:
+			pldict['desc'] = match.group(2)
+		else:
+			pldict['desc'] = ""
 		
 		match = re.search(r'<coordinates>([\d\.]+),([\d\.]+),0', code)
 		lat = float(match.group(2))
@@ -199,7 +206,7 @@ def kml2py(filename):
 
 
 
-def makeMap(provider="watercolor", area_name="central", zoom=13, by_centre=False, map_size=(800,600)):
+def makeMap(provider, area_name, zoom, by_centre, map_size=(800,600)):
 	"""
 	zoom:	integer, the zoom level (altitude)
 			min 12; max 15 in this case
@@ -364,10 +371,10 @@ def saveMap(m, where="", filename="map", inc_date=True, verbose=False):
 		print "Image saved."
 	return
 
-def assembleMap(map_type, area, zoom, placemark_params, verbose=False):
+def assembleMap(map_type, area, zoom, by_centre, placemark_params, kmlfile, verbose=False):
 	map1, map2 = map_type
 
-	map_inst  = makeMap(map1, area, int(zoom))
+	map_inst  = makeMap(map1, area, int(zoom), by_centre=by_centre)
 	map_image = drawMap(map_inst, verbose)
 	"""
 	if map_type in ["lines", "labels", "lite"]:
@@ -376,14 +383,14 @@ def assembleMap(map_type, area, zoom, placemark_params, verbose=False):
 
 	# map for the placemark circles
 	if map1 != map2:
-		map2_inst  = makeMap(map2, area, int(zoom))
+		map2_inst  = makeMap(map2, area, int(zoom), by_centre=by_centre)
 		map2_image = drawMap(map2_inst, verbose)
 	elif map1 == map2:
 		map2_image = map_image.copy()
 
 	# makes a black background with holes in it for the placemark locations
 	placemark_layer = makeLayer(map_image, "black")
-	places = kml2py(KMLfile)
+	places = kml2py(kmlfile)
 	addPlacemarks(map_inst, placemark_layer, places, placemark_params)
 
 	# makes a placemark mask
@@ -461,13 +468,14 @@ def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None)
 	return map_image
 
 
-def main(map_provider="watercolor", area_name="Stockholm", zoom=10):
+def main(map_provider, area_name, zoom, by_centre, kmlfile):
 	placemark_params = ("circle", 100, "transparent")	# 0.2 for zoom15
 
-	m 	= makeMap(map_provider, area_name, zoom, by_centre=True, map_size=(400,300))
-	img = drawMap(m)
+	m 	= makeMap(map_provider, area_name, zoom, by_centre, map_size=(400,300))
+	if not kmlfile:
+		return drawMap(m)
 
-	# img = assembleMap(("watercolor", "watercolor"), "wTyresta", 12, placemark_params)
+	img = assembleMap((map_provider, map_provider), area_name, zoom, by_centre, placemark_params, kmlfile)
 
 	# img = addViewport(m, img, MAP_BOX["central"], 5)
 	# img = addViewport(m, img, MAP_BOX["wKista"], 10)

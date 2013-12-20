@@ -31,6 +31,10 @@ def assemble(request, map_id):
         where  = request.POST['where'].title()
         zoom   = int(request.POST['zoom'])
         design = request.POST['design']
+        kmlfile = request.FILES["placemarks"]   # need to do verification on this!
+
+        m_img = mapgift.main(map_provider=design, area_name=where, zoom=zoom, by_centre=True, kmlfile=kmlfile.read())
+
         m = Map(
             area_name = where,
             zoom = zoom,
@@ -38,8 +42,8 @@ def assemble(request, map_id):
             pub_date = timezone.now()
             )
         m.save() # add map to the database
-        m_img = mapgift.main(map_provider=design, area_name=where, zoom=zoom)
-    except Exception:
+
+    except Placemark.DoesNotExist:
         return render(request, 'mapg/index.html', update_map_list())
     else:
         # ok this url is a disaster, wtf

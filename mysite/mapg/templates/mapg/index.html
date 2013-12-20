@@ -5,7 +5,7 @@
 
 <h1>Make a map</h1>
 
-<form action="{% url 'mapg:assemble' next_map_id %}" method="post">
+<form action="{% url 'mapg:assemble' next_map_id %}" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<p>
 		<!-- <label for="where">Where</label>
@@ -34,11 +34,11 @@
 		{% endfor %}
 		<br />
 
-		<span class="label">Add placemarks</span>
-		<!-- Allow option to upload kml file -->
+		<span class="label"><label for="placemarks">Add placemarks</label></span>
+		<input type="file" name="placemarks" id="placemarks" />
 
 	</p>
-	<input type="submit" value="Generate Map n°{{ next_map_id }}" />
+	<input type="submit" name="submit" value="Generate Map n°{{ next_map_id }}"/>
 </form>
 
 

@@ -9,6 +9,7 @@ class Map(models.Model):
     area_name = models.CharField(max_length=20)
     zoom = models.IntegerField()
     map_provider = models.CharField(max_length=20)
+    # kmlfile = models.FileField()
     pub_date = models.DateTimeField('date published')
     def __unicode__(self):
         return self.area_name
