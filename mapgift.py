@@ -4,7 +4,7 @@ A project based on Nicole's present to me for my departure from Sweden.
 
 
 Input	A KML file downloaded from internet Google Maps (or its web
-		address).
+		address). => changed to accept the data *from* the KML file
 		It is a list of placemarks each representing a special place
 		for Nicole and I.
 
@@ -22,6 +22,12 @@ Features	There should be a few map tile styles (basemap providers)
 			I'm toying with the idea of turning this into a semi
 			web-app project, which will give me practice in coding
 			with web APIs, and doing web mapping.
+
+
+How this works
+		
+		It's important to make the distinction between the map instance, and the map image.
+
 
 
 Future Improvements
@@ -86,7 +92,6 @@ More ideas for map design
 
 
 Idea for how to organise code:
-(What will I want to change later? technique)
 1. 	Draw a few map examples like the ones detailed above.
 	Make some very different and very similar ones.
 2. 	Write step by step code of how to make that map, for each map.
@@ -96,13 +101,9 @@ Idea for how to organise code:
 """
 import re
 
-import sys 
-sys.path.append("/Users/jc5809/Dropbox/Programming/Learning Python/My python scripts/justine pymodules")
 from jc import makeSwedishDate as sw
 from jc import makeSmaller
-from jc import beep
 import time	# to put date in saved images' filename
-from pprint import pprint
 
 import ModestMaps as MM	# I had to manually add the Stamen code
 import Image, ImageDraw, ImageFont, ImageOps
@@ -117,27 +118,30 @@ MAP_BOX = {
 	"Sweden":		((65.422, 0.483), 	(51.917, 35.640)),
 	"northEurope":	((70.348, -17.051), (43.005, 53.262)),
 	"Europe":		((77.542, -52.207), (20.961, 88.418)),
-	"world":		((85.021, -122.695),(-29.841, 158.555))
+	"world":		((85.021, -122.695),(-29.841, 158.555)),
+
+	"Stockholm":	((59.382, 17.931), 	(59.277, 18.206)),
+	"London":		((51.535, -0.239),	(51.45,	 -0.046)),
+	"Paris":		((48.902, 2.241),	(48.810, 2.429)),
+
+}	# "area_name":	(lat lon of top left corner, lat lon bottom right corner)
+
+CENTRE = {
+	"Stockholm":	(59.329444, 18.068611),
+	"London":		(51.507222, -0.1275),
+	"Paris":		(48.8567,	2.3508),
 }
 
-# First, I need to convert the Geo data into Python objects I can use
+PROVIDERS = {	'osm': 		'OPENSTREETMAP',
+				'watercolor':'STAMEN_WATERCOLOR',
+				'toner':	'STAMEN_TONER',
+				'lines':	'STAMEN_TONER_LINES',
+				'lite':		'STAMEN_TONER_LITE',
+				'labels':	'STAMEN_TONER_LABELS',
+}
 
-KMLfile = "JustineandNicoleinStockholm.kml"
 
-
-def kml2py(filename):
-	"""
-	Converts KML data to usable Python objects.
-
-	filename:	A .kml file
-
-	Returns:	A list of Python objects
-				[py, py]
-
-				I've chosen to use dictionaries:
-				[{'name':name, 'coor': (lat,lon), 'desc': description},
-				{'name':name, 'coor': (lat,lon), 'desc': description}]
-	"""
+def openkml(filename):
 	with open(filename, "r") as kmlfile:
 		"""
 		if kmlfile.info().gettype() == 'text/xml':
@@ -145,24 +149,46 @@ def kml2py(filename):
 		else:
 			raise TypeError
 		"""
-		file = kmlfile.read()
+		kmldata = kmlfile.read()
+	return kmldata
+
+def kml2py(kmldata):
+	"""
+	Converts KML data to usable Python objects.
+
+	kmldata:	An open and read .kml file
+
+	Returns:	A list of Python objects
+				[py, py]
+
+				I've chosen to use dictionaries:
+				[{'name':name, 'coor': (lat,lon), 'desc': description},
+				 {'name':name, 'coor': (lat,lon), 'desc': description}]
+	"""
+	# check if the file has been opened and open it if not ?
 
 	# find all <Placemark>...</Placemark> tags
-	match1 = re.findall(r'<Placemark>.*?</Placemark>', file, re.DOTALL)
+	match1 = re.findall(r'<Placemark>.*?</Placemark>', kmldata, re.DOTALL)
 	# match1 is a list of code
 
 	# find name, description, lat, lon
 	# and organise it into a list of dicts
 	placemarks = list()
-	for placemark in match1:
+	for i, placemark in enumerate(match1):
 		code = placemark.decode('utf-8')
 		pldict = dict()
 
 		match = re.search(r'<name>([,\w\s\-]*?)</name>', code, re.UNICODE)
-		pldict['name'] = match.group(1)
+		if match:
+			pldict['name'] = match.group(1)
+		else:
+			pldict['name'] = "Placemark %d" % i
 
 		match = re.search(r'CDATA\[(<div dir="ltr">)?(.*?)(</div>)?\]\]', code)
-		pldict['desc'] = match.group(2)
+		if match:
+			pldict['desc'] = match.group(2)
+		else:
+			pldict['desc'] = ""
 		
 		match = re.search(r'<coordinates>([\d\.]+),([\d\.]+),0', code)
 		lat = float(match.group(2))
@@ -175,46 +201,44 @@ def kml2py(filename):
 
 
 
-def makeMap(provider="watercolor", mapbox="central", zoom=13):
+def makeMap(provider, area_name, zoom, by_centre, map_size=(200,150)):
 	"""
 	zoom:	integer, the zoom level (altitude)
 			min 12; max 15 in this case
 
+	Returns a map instance (not image!)
 	"""
 	zoom = int(zoom)
 
-	shortcuts = {	'osm': 		'OPENSTREETMAP',
-					'watercolor':'STAMEN_WATERCOLOR',
-					'toner':	'STAMEN_TONER',
-					'lines':	'STAMEN_TONER_LINES',
-					'lite':		'STAMEN_TONER_LITE',
-					'labels':	'STAMEN_TONER_LABELS',}
-	provider = shortcuts[provider.lower()]
+	provider = PROVIDERS[provider.lower()]
 	provider = MM.builtinProviders[provider]()
-	"""
-	centre	 = (59.329444, 18.068611)	# lat (North), long (East)
-	width	 = 800
-	height	 = 600
+	
+	if by_centre:
+		centre	 = CENTRE[area_name]
+		width	 = map_size[0]
+		height	 = map_size[1]
 
-	m = MM.mapByCenterZoom(	provider,
-							MM.Geo.Location(*centre),
-							zoom,
-							MM.Core.Point(width, height))
-	print m.pointLocation(MM.Core.Point(0,0))
-	print m.pointLocation(MM.Core.Point(width,height))
-	"""
-	map_box = MAP_BOX[mapbox]
-	left_upper_corner  = MM.Geo.Location(*map_box[0])
-	right_lower_corner = MM.Geo.Location(*map_box[1])
+		m = MM.mapByCenterZoom(	provider,
+								MM.Geo.Location(*centre),
+								zoom,
+								MM.Core.Point(width, height))
+		print m.pointLocation(MM.Core.Point(0,0))			# to get the upper left corner geo coordinates
+		print m.pointLocation(MM.Core.Point(width,height))	# to get the lower right corner geo coordinates
+	
+	else: # by box
+		map_box = MAP_BOX[area_name]
+		left_upper_corner  = MM.Geo.Location(*map_box[0])
+		right_lower_corner = MM.Geo.Location(*map_box[1])
 
-	m = MM.mapByExtentZoom(	provider,
-							left_upper_corner,
-							right_lower_corner,
-							zoom)
+		m = MM.mapByExtentZoom(	provider,
+								left_upper_corner,
+								right_lower_corner,
+								zoom)
 	return m
 
 
 def drawMap(m, verbose=False):
+	"""Takes a map instance and 'draws' it by calling all the map tiles and stitching them together."""
 	map_image = m.draw(verbose)
 	return map_image
 
@@ -332,15 +356,20 @@ def addLayer(image, layer, mask=None):
 	return image
 
 
-def saveMap(m, filename="map"):
-	filename += str(sw(time.localtime()))+".png"
-	m.save(filename)
+def saveMap(m, where="", filename="map", inc_date=True, verbose=False):
+	if inc_date:
+		filename += str(sw(time.localtime()))+".png"
+	else:
+		filename += ".png"
+	m.save(where+filename)
+	if verbose:
+		print "Image saved."
 	return
 
-def assembleMap(map_type, area, zoom, placemark_params, verbose=False):
+def assembleMap(map_type, area, zoom, by_centre, placemark_params, kmlfile, verbose=False):
 	map1, map2 = map_type
 
-	map_inst  = makeMap(map1, area, int(zoom))
+	map_inst  = makeMap(map1, area, int(zoom), by_centre=by_centre)
 	map_image = drawMap(map_inst, verbose)
 	"""
 	if map_type in ["lines", "labels", "lite"]:
@@ -349,14 +378,18 @@ def assembleMap(map_type, area, zoom, placemark_params, verbose=False):
 
 	# map for the placemark circles
 	if map1 != map2:
-		map2_inst  = makeMap(map2, area, int(zoom))
+		map2_inst  = makeMap(map2, area, int(zoom), by_centre=by_centre)
 		map2_image = drawMap(map2_inst, verbose)
 	elif map1 == map2:
 		map2_image = map_image.copy()
 
 	# makes a black background with holes in it for the placemark locations
 	placemark_layer = makeLayer(map_image, "black")
-	places = kml2py(KMLfile)
+	if kmlfile[-3:] == "kml":
+		kmldata = openkml(kmlfile)
+	else:
+		kmldata = kmlfile
+	places = kml2py(kmldata)
 	addPlacemarks(map_inst, placemark_layer, places, placemark_params)
 
 	# makes a placemark mask
@@ -434,28 +467,28 @@ def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None)
 	return map_image
 
 
-def main():
+def main(map_provider, area_name, zoom, by_centre, kmlfile):
 	placemark_params = ("circle", 100, "transparent")	# 0.2 for zoom15
 
-	m 	= makeMap("watercolor", "wTyresta", 12)
+	m 	= makeMap(map_provider, area_name, zoom, by_centre)
+	if not kmlfile:
+		print "No kmlfile found."
+		return drawMap(m)
 
-	img = assembleMap(("watercolor", "watercolor"), "wTyresta", sys.argv[1], placemark_params)
+	img = assembleMap((map_provider, map_provider), area_name, zoom, by_centre, placemark_params, kmlfile)
 
-	img = addViewport(m, img, MAP_BOX["central"], 5)
-	img = addViewport(m, img, MAP_BOX["wKista"], 10)
-	
-	saveMap(img)
-	beep()
-	time.sleep(1)
-	beep()
-	return
+	# img = addViewport(m, img, MAP_BOX["central"], 5)
+	# img = addViewport(m, img, MAP_BOX["wKista"], 10)
+	return img
 
 
 if __name__ == "__main__":
 
-	sys.exit(main())
-
-
+	# sys.exit(main())
+	KMLfile = "JustineandNicoleinStockholm.kml"
+	m = main("watercolor", "wTyresta", 11, False, KMLfile)
+	saveMap(m)
+	m.show()
 
 
 

@@ -1,0 +1,16 @@
+$ cat .gitignore
+
+# Can ignore specific files
+.DS_Store
+placemark icons.jpg
+
+# Use wildcards as well
+*~
+*.swp
+*.pyc
+map*.png
+
+# Can also ignore all directories and files in a directory.
+tmp/**/* 
+mysite/mapg/static/mapg/images/map_images/*
+examples/
