@@ -1,6 +1,8 @@
 # Can ignore specific files
 .DS_Store
 placemark icons.jpg
+index.html
+map.html
 
 # Use wildcards as well
 *~
