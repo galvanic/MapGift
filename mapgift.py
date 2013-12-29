@@ -200,7 +200,7 @@ def kml2py(kmldata):
 	return placemarks 
 
 
-def makeMap(provider, area_name, zoom, by_centre, map_size):
+def makeMap(provider, area_name, zoom, by_centre, map_size=(400,300)):
 	"""
 	zoom:	integer, the zoom level (altitude)
 			min 12; max 15 in this case
@@ -469,7 +469,7 @@ def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None)
 def main(map_provider, area_name, zoom, by_centre, kmlfile):
 	placemark_params = ("circle", 50, "transparent")	# 0.2 for zoom15
 
-	m 	= makeMap(map_provider, area_name, zoom, by_centre, map_size=(400,300))
+	m 	= makeMap(map_provider, area_name, zoom, by_centre)
 	if not kmlfile:
 		return drawMap(m)
 
