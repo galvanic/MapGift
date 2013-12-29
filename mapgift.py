@@ -482,8 +482,12 @@ def main(map_provider, area_name, zoom, by_centre, kmlfile):
 
 if __name__ == "__main__":
 
+	# for quick access
+	paris_params = ("watercolor", "Paris", 14, False, "SummerinParis.kml")
+	stockholm_params = ("watercolor", "suburb", 14, False, "JustineandNicoleinStockholm.kml")
+
 	# sys.exit(main())
-	m = main()
+	m = main(*paris_params)
 	saveMap(m)
 	m.show()
 
