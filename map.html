@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map of Stockholm</title>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.css" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.js"></script>
+  <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.2"></script>
+  <!--
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  -->
+  <script src="leaflet-plugins/layer/vector/KML.js"></script>
+
+  <style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin:0; padding:0 }
+  #map { height: 100%; }
+  </style>
+</head>
+<body onload="load_map()">
+  <div id="map"></div>
+  <script type="text/javascript">
+  function load_map() {
+    var map = L.map('map').setView([59.3344, 18.0485], 12);
+
+    L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+      maxZoom: 18
+    }).addTo(map);
+
+    var marker = L.marker([59.325119,18.067902]).addTo(map);
+    marker.bindPopup("The Jazzbar that Annette recommended. It was a cool night, Timo and his German friends were with us.");
+
+    var kmlLayer = new L.KML("JustineandNicoleinStockholm.kml", {async: true});
+                                                              
+    kmlLayer.on("loaded", function(e) { 
+      map.fitBounds(e.target.getBounds());
+    });
+                                                
+    map.addLayer(kmlLayer);
+
+  }
+  </script>
+</body>
+</html> 

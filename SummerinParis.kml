@@ -1,0 +1,314 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns='http://www.opengis.net/kml/2.2'>
+	<Document>
+		<name>Summer in Paris</name>
+		<description><![CDATA[Nguoi Yêu]]></description>
+		<Folder>
+			<name>Restaurants</name>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Candelaria</name>
+				<Point>
+					<coordinates>2.3640179999999873,48.863007,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Big Fernand</name>
+				<Point>
+					<coordinates>2.3479640000000472,48.874688,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>la Vache Au Comptoir</name>
+				<Point>
+					<coordinates>2.3245899999999438,48.842234,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Jeroboam</name>
+				<Point>
+					<coordinates>2.3169370000000526,48.8291,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Boeuf Grillé</name>
+				<Point>
+					<coordinates>2.3622569999999996,48.823902,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Claus</name>
+				<Point>
+					<coordinates>2.3405970000000025,48.862415,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Sashimi</name>
+				<Point>
+					<coordinates>2.3432000000000244,48.846076,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Higuma</name>
+				<Point>
+					<coordinates>2.335804000000053,48.866578,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Le temps des olivades</name>
+				<Point>
+					<coordinates>2.3494349999999713,48.82585,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Kunitoraya</name>
+				<Point>
+					<coordinates>2.336317699999995,48.8661793,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Chacun ses Goûts</name>
+				<Point>
+					<coordinates>2.3546119999999746,48.860448,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>59 Rue Galande</name>
+				<description><![CDATA[Pho 67]]></description>
+				<Point>
+					<coordinates>2.346796100000006,48.8517181,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>129 Avenue de Choisy</name>
+				<description><![CDATA[Song Huong]]></description>
+				<Point>
+					<coordinates>2.3596041000000696,48.8264676,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Hoki Sushi</name>
+				<description><![CDATA[La défaite]]></description>
+				<Point>
+					<coordinates>2.135295867919922,48.89793208363638,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Le Bambou</name>
+				<Point>
+					<coordinates>2.3624529999999595,48.825222,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Fuxia</name>
+				<Point>
+					<coordinates>2.3322180000000117,48.867593,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-FF8277</styleUrl>
+				<name>Patati Patata</name>
+				<Point>
+					<coordinates>2.3744070000000193,48.853032,0.0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>Autres</name>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>9 Rue Léo Delibes</name>
+				<Point>
+					<coordinates>2.3080697000000328,48.7834251,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>41 Rue Esquirol</name>
+				<Point>
+					<coordinates>2.3597155999999586,48.8357395,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Wanderlust</name>
+				<Point>
+					<coordinates>2.370123000000035,48.840442,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Café Barge</name>
+				<Point>
+					<coordinates>2.370818999999983,48.842437,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>16 Avenue Marceau</name>
+				<Point>
+					<coordinates>2.1243226999999933,48.8987726,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Grande Galerie de l'Evolution</name>
+				<Point>
+					<coordinates>2.356441000000018,48.841791,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Jardin des Plantes</name>
+				<Point>
+					<coordinates>2.359599600000024,48.8439621,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Hôpital Pitié-Salpêtrière</name>
+				<Point>
+					<coordinates>2.3610559999999623,48.837916,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Bibliothèque nationale de France</name>
+				<Point>
+					<coordinates>2.3757659999999987,48.833584,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>24 Rue de la Reine Blanche</name>
+				<Point>
+					<coordinates>2.3533279000000675,48.8363544,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Jimmy Fairly</name>
+				<Point>
+					<coordinates>2.3593630000000303,48.859043,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Institut Suédois</name>
+				<Point>
+					<coordinates>2.362211000000002,48.858134,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Gare de l'Est</name>
+				<Point>
+					<coordinates>2.3582830000000286,48.876141,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-62AF44</styleUrl>
+				<name>Gelati d'Alberto</name>
+				<Point>
+					<coordinates>2.349784999999997,48.859177,0.0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>Cafés</name>
+			<Placemark>
+				<styleUrl>#icon-503-795046</styleUrl>
+				<name>Telescope</name>
+				<Point>
+					<coordinates>2.336332999999968,48.86617,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-795046</styleUrl>
+				<name>Ten Belles</name>
+				<Point>
+					<coordinates>2.364796999999953,48.873503,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-795046</styleUrl>
+				<name>KB CAFESHOP</name>
+				<Point>
+					<coordinates>2.34078199999999,48.880682,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-795046</styleUrl>
+				<name>78 Rue des Martyrs</name>
+				<description><![CDATA[People's drugstore (Craft Beer)]]></description>
+				<Point>
+					<coordinates>2.3397393000000193,48.8829207,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-795046</styleUrl>
+				<name>Chez Lili et Marcel</name>
+				<Point>
+					<coordinates>2.373450000000048,48.837615,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-795046</styleUrl>
+				<name>Quai des Invalides</name>
+				<description><![CDATA[En attendant Rosa]]></description>
+				<Point>
+					<coordinates>2.3148751258850098,48.86314789481612,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<styleUrl>#icon-503-795046</styleUrl>
+				<name>Caféothèque</name>
+				<Point>
+					<coordinates>2.3557690000000093,48.854453,0.0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Style id='icon-503-62AF44'>
+			<IconStyle>
+				<color>ff44AF62</color>
+				<scale>1.1</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Style id='icon-503-795046'>
+			<IconStyle>
+				<color>ff465079</color>
+				<scale>1.1</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Style id='icon-503-FF8277'>
+			<IconStyle>
+				<color>ff7782FF</color>
+				<scale>1.1</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+	</Document>
+</kml>
