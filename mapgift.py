@@ -200,7 +200,6 @@ def kml2py(kmldata):
 	return placemarks 
 
 
-
 def makeMap(provider, area_name, zoom, by_centre, map_size):
 	"""
 	zoom:	integer, the zoom level (altitude)
@@ -472,7 +471,6 @@ def main(map_provider, area_name, zoom, by_centre, kmlfile):
 
 	m 	= makeMap(map_provider, area_name, zoom, by_centre, map_size=(400,300))
 	if not kmlfile:
-		print "No kmlfile found."
 		return drawMap(m)
 
 	img = assembleMap((map_provider, map_provider), area_name, zoom, by_centre, placemark_params, kmlfile)
@@ -485,8 +483,7 @@ def main(map_provider, area_name, zoom, by_centre, kmlfile):
 if __name__ == "__main__":
 
 	# sys.exit(main())
-	KMLfile = "JustineandNicoleinStockholm.kml"
-	m = main("watercolor", "wTyresta", 11, False, KMLfile)
+	m = main()
 	saveMap(m)
 	m.show()
 

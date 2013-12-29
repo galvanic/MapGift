@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Make map{% endblock %}
+{% block content %}
+
+<form action="{% url 'mapg:assemble' next_map_id %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<ul>
+		<li>
+			<!-- <label for="where">Where</label>
+			<input type="text" name="where" id="where" placeholder="best city: London ;)" autofocus /> -->
+			<div class="label">Where</div>
+			<ul>
+				<li>
+					<input type="radio" name="where" value="london" id="london" />
+					<label for="london">London</label>
+				</li>
+				<li>
+					<input type="radio" name="where" value="paris" id="paris" />
+					<label for="paris">Paris</label>
+				</li>
+				<li>
+					<input type="radio" name="where" value="stockholm" id="stockholm" />
+					<label for="stockholm">Stockholm</label>
+				</li>
+			</ul>
+		</li>
+	
+		<li>
+			<div class="label">Zoom level</div>
+			<ul>
+				<li>
+					<input type="radio" name="zoom" value="12" id="12" />
+					<label for="12">City view</label>
+				</li>
+				<li>
+					<input type="radio" name="zoom" value="14" id="14" />
+					<label for="14">Street view</label>
+				</li>
+			</ul>
+		</li>
+		
+		<li>
+			<!-- Automatically generate this map provider list from the mapgift.py file -->
+			<div class="label">Design</div>
+			<ul>
+				{% for shortcut, name in providers.iteritems %}
+				<li>
+					<input type="radio" name="design" value="{{ shortcut }}" id="{{ shortcut }}" />
+					<label for="{{ shortcut }}">{{ name|lower }}</label>
+				</li>
+				{% endfor %}
+			</ul>
+		</li>
+
+		<li>
+			<div class"optional field">
+			<div class="label"><label for="placemarks">Add placemarks</label></div>
+			<ul>
+				<li>
+					<input type="file" name="placemarks" id="placemarks" />
+				</li>
+			</ul>
+			</div>
+		</li>
+	</ul>
+
+	<input type="submit" name="submit" value="Generate Map n°{{ next_map_id }}"/>
+</form>
+
+
+{% endblock %}
