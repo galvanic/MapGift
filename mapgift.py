@@ -467,7 +467,7 @@ def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None)
 
 
 def main(map_provider, area_name, zoom, by_centre, kmlfile):
-	placemark_params = ("circle", 50, "transparent")	# 0.2 for zoom15
+	placemark_params = ("circle", 50, "transparent")
 
 	m 	= makeMap(map_provider, area_name, zoom, by_centre)
 	if not kmlfile:
@@ -483,7 +483,7 @@ def main(map_provider, area_name, zoom, by_centre, kmlfile):
 if __name__ == "__main__":
 
 	# for quick access
-	paris_params = ("watercolor", "Paris", 14, False, "SummerinParis.kml")
+	paris_params = ("toner", "Paris", 14, False, "SummerinParis.kml")
 	stockholm_params = ("watercolor", "suburb", 14, False, "JustineandNicoleinStockholm.kml")
 
 	# sys.exit(main())
