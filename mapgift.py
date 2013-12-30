@@ -165,8 +165,6 @@ def kml2py(kmldata):
 				[{'name':name, 'coor': (lat,lon), 'desc': description},
 				 {'name':name, 'coor': (lat,lon), 'desc': description}]
 	"""
-	# check if the file has been opened and open it if not ?
-
 	# find all <Placemark>...</Placemark> tags
 	match1 = re.findall(r'<Placemark>.*?</Placemark>', kmldata, re.DOTALL)
 	# match1 is a list of code
@@ -190,10 +188,13 @@ def kml2py(kmldata):
 		else:
 			pldict['desc'] = ""
 		
-		match = re.search(r'<coordinates>([\d\.]+),([\d\.]+),0', code)
-		lat = float(match.group(2))
-		lon = float(match.group(1))
-		pldict['coor'] = (lat,lon)
+		match = re.search(r'<coordinates>([-\d\.]+),([-\d\.]+),0', code)
+		if match:
+			lat = float(match.group(2))
+			lon = float(match.group(1))
+			pldict['coor'] = (lat,lon)
+		else:
+			pldict['coor'] = (0.0, 0.0)
 
 		placemarks.append(pldict)
 
@@ -355,7 +356,7 @@ def addLayer(image, layer, mask=None):
 	return image
 
 
-def saveMap(m, where="", filename="map", inc_date=True, verbose=False):
+def saveMap(m, where="examples/", filename="map", inc_date=True, verbose=False):
 	if inc_date:
 		filename += str(sw(time.localtime()))+".png"
 	else:
@@ -485,9 +486,11 @@ if __name__ == "__main__":
 	# for quick access
 	paris_params = ("toner", "Paris", 14, False, "SummerinParis.kml")
 	stockholm_params = ("watercolor", "suburb", 14, False, "JustineandNicoleinStockholm.kml")
+	london_params = ("lite", "London", 15, False, "Imperialyears.kml")
+
 
 	# sys.exit(main())
-	m = main(*paris_params)
+	m = main(*london_params)
 	saveMap(m)
 	m.show()
 
