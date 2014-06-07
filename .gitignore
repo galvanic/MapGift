@@ -1,5 +1,6 @@
 .DS_Store
-placemark icons.jpg
+*.jpg
+*.png
 index.html
 map.html
 
@@ -11,6 +12,5 @@ map*.png
 *.kml
 *.css
 
-tmp/**/* 
-mysite/mapg/static/mapg/images/map_images/*
 examples/
+images/
