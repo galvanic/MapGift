@@ -101,8 +101,8 @@ Idea for how to organise code:
 """
 import re
 
-from jc import makeSwedishDate as sw
-from jc import makeSmaller
+from helper import makeSwedishDate as sw
+from helper import makeSmaller
 import time	# to put date in saved images' filename
 
 import ModestMaps as MM	# I had to manually add the Stamen code
