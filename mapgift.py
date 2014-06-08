@@ -85,7 +85,7 @@ Future Improvements
 
 More ideas for map design
 	
-- give it a more "hipster" style by using circle shapes
+- give it a different style by using circle shapes
 	eg.	- make a grid of circles of the places
 		- show circled placemarks in different map type than map background
 			eg. a black map with placemarks "punched through"
@@ -100,13 +100,14 @@ Idea for how to organise code:
 
 """
 import re
+import os
 
 from helper import makeSwedishDate as sw
 from helper import makeSmaller
 import time	# to put date in saved images' filename
 
 import ModestMaps as MM	# I had to manually add the Stamen code
-import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 
 MAP_BOX = {
@@ -386,6 +387,7 @@ def assembleMap(map_type, area, zoom, by_centre, placemark_params, kmlfile, verb
 	# makes a black background with holes in it for the placemark locations
 	placemark_layer = makeLayer(map_image, "black")
 	if kmlfile[-3:] == "kml":
+		kmlfile = os.path.join("kml_files", kmlfile)
 		kmldata = openkml(kmlfile)
 	else:
 		kmldata = kmlfile
@@ -488,13 +490,13 @@ if __name__ == "__main__":
 	stockholm_params = ("watercolor", "suburb", 14, False, "JustineandNicoleinStockholm.kml")
 	london_params = ("lite", "London", 15, False, "Imperialyears.kml")
 
+	test_params = ("osm", "London", 15, False, "Imperialyears.kml")
 
 	# sys.exit(main())
-	m = main(*london_params)
+	m = main(*test_params)
 	saveMap(m)
 	m.show()
-
-
+	del m
 
 
 
