@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}archive{% endblock %}
+{% block content %}
+
+
+{% if map_list %}
+    <ol>
+    {% for map in map_list %}
+        <li>
+        <ol>
+            <a href="{% url 'makemap:detail' map.id %}">
+            <li>{{ map.area_name }}</li>
+            <li>Zoom {{ map.zoom }}</li>
+            <li>{{ map.provider }}</li>
+            <li>{{ map.pub_date }}</li>
+            <li class="img"><img src="https://s3-eu-west-1.amazonaws.com/map-images-jc/map{{ map.id }}.png"></li>
+            </a>
+        </ol>
+        </li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No maps are available. Why don't you <a href="{% url 'makemap:index' %}">make one</a> ?</p>
+{% endif %}
+
+<p>
+There are {% if map_list %}more {% endif %}map examples on <a href="http://galvanic.github.io/MapGift/">this page</a>.
+</p>
+
+
+{% endblock %}

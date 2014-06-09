@@ -4,12 +4,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'maps_project.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
+	
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^makemap/', include('makemap.urls')),
+    url(r'^makemap/', include('makemap.urls', namespace="makemap")),
     url(r'^$', include('makemap.urls')),
 )

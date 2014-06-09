@@ -11,7 +11,6 @@ class Map(models.Model):
         return self.area_name
 
 class KMLfile(models.Model):
-    map_obj       = models.ForeignKey(Map)
     filename      = models.FileField(upload_to="kml_files")
     date_uploaded = models.DateField("date uploaded")
     def __unicode__(self):
