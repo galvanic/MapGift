@@ -1,31 +1,33 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.utils import timezone
+from django.shortcuts          import render, get_object_or_404
+from django.http               import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers  import reverse
+from django.utils              import timezone
 
 from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
+from django.core.files.base    import ContentFile
 
 from makemap.models import Map, KMLfile
 import mapgift
+
+import cStringIO
 
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 import boto
-from boto.s3.key import Key
+from boto.s3.key        import Key
 from boto.s3.connection import S3Connection
-# AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-# S3_BUCKET = os.environ.get('S3_BUCKET_NAME')
+
+AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 
-def send_image_s3(saved_to, image_filename):
-    conn = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-    bucket = conn.get_bucket(S3_BUCKET)
-    k = Key(bucket)
-    k.key = image_filename
-    k.set_contents_from_filename(saved_to+image_filename)
+def send_image_s3(img_file, image_filename):
+    conn   = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+    bucket = conn.get_bucket("map-images-jc")
+    k      = Key(bucket)
+    k.key  = image_filename
+    k.set_contents_from_string(img_file.getvalue())
     k.make_public()
     return
 
@@ -52,6 +54,7 @@ def archive(request):
 
 def assemble(request, map_id):
 
+    ## get all info from the form in the index page
     design = request.POST["design"]
     zoom   = int(request.POST["zoom2"])
     coord  = request.POST["coord"]
@@ -63,25 +66,22 @@ def assemble(request, map_id):
 
     m_img = mapgift.main(map_provider=design, area=coord, zoom=zoom, by_centre=True, kmlfile=kmlfile)
     
-    save_to = os.path.join(BASE_DIR, 'static/makemap/images/map_images/')
-    map_name = "map"+str(map_id)
-    mapgift.saveMap(m_img, save_to, map_name, False, True)
-    del m_img
-    map_name += ".png"
+    ## send image off to be stored in S3 through boto
+    m_img_file = cStringIO.StringIO()
+    m_img.save(m_img_file, "PNG")
+    map_name = "map%s.png" % str(map_id)
+    send_image_s3(m_img_file, map_name)
+    del m_img, m_img_file
 
-    # send image off to be stored in S3 through boto
-    send_image_s3(save_to, map_name)
-
-    os.remove(save_to+map_name)
-
+    ## save in the database
     where = ", ".join(map(str, coord))
     m = Map(
-        area_name = where,
-        zoom = zoom,
+        area_name    = where, # should reverse geolocalise this to get an actual name
+        zoom         = zoom,
         map_provider = design,
-        pub_date = timezone.now()
-        )
-    m.save() # add map to the database
+        pub_date     = timezone.now()
+    )
+    m.save()
 
     return HttpResponseRedirect(reverse('makemap:detail', args=(map_id, )))
 
