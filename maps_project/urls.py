@@ -7,6 +7,6 @@ urlpatterns = patterns('',
 	
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^makemap/', include('makemap.urls', namespace="makemap")),
-    url(r'^$', include('makemap.urls')),
+    url(r'^makemapapp/', include('makemapapp.urls', namespace="makemapapp")),
+    url(r'^$', include('makemapapp.urls')),
 )

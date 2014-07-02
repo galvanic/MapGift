@@ -15,4 +15,5 @@ map*.png
 examples/
 images/
 
+# this file is for finding big files/blobs in the git repo
 rmcom.py

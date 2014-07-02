@@ -6,7 +6,7 @@ from django.utils              import timezone
 from django.core.files.storage import default_storage
 from django.core.files.base    import ContentFile
 
-from makemap.models import Map, KMLfile
+from makemapapp.models import Map, KMLfile
 import mapgift
 
 import cStringIO
@@ -45,11 +45,11 @@ def update_map_list():
 
 
 def index(request):
-    return render(request, 'makemap/index.html', update_map_list())
+    return render(request, 'makemapapp/index.html', update_map_list())
 
 
 def archive(request):
-    return render(request, 'makemap/archive.html', update_map_list())
+    return render(request, 'makemapapp/archive.html', update_map_list())
 
 
 def assemble(request, map_id):
@@ -83,11 +83,11 @@ def assemble(request, map_id):
     )
     m.save()
 
-    return HttpResponseRedirect(reverse('makemap:detail', args=(map_id, )))
+    return HttpResponseRedirect(reverse('makemapapp:detail', args=(map_id, )))
 
 
 def detail(request, map_id):
     m = get_object_or_404(Map, pk=map_id)
-    return render(request, 'makemap/detail.html', {'map': m})
+    return render(request, 'makemapapp/detail.html', {'map': m})
 
 

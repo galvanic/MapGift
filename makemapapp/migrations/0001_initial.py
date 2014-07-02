@@ -9,42 +9,40 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'Map'
-        db.create_table(u'makemap_map', (
+        db.create_table(u'makemapapp_map', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('area_name', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('zoom', self.gf('django.db.models.fields.IntegerField')()),
             ('map_provider', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('pub_date', self.gf('django.db.models.fields.DateTimeField')()),
         ))
-        db.send_create_signal(u'makemap', ['Map'])
+        db.send_create_signal(u'makemapapp', ['Map'])
 
         # Adding model 'KMLfile'
-        db.create_table(u'makemap_kmlfile', (
+        db.create_table(u'makemapapp_kmlfile', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('map_obj', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['makemap.Map'])),
             ('filename', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
             ('date_uploaded', self.gf('django.db.models.fields.DateField')()),
         ))
-        db.send_create_signal(u'makemap', ['KMLfile'])
+        db.send_create_signal(u'makemapapp', ['KMLfile'])
 
 
     def backwards(self, orm):
         # Deleting model 'Map'
-        db.delete_table(u'makemap_map')
+        db.delete_table(u'makemapapp_map')
 
         # Deleting model 'KMLfile'
-        db.delete_table(u'makemap_kmlfile')
+        db.delete_table(u'makemapapp_kmlfile')
 
 
     models = {
-        u'makemap.kmlfile': {
+        u'makemapapp.kmlfile': {
             'Meta': {'object_name': 'KMLfile'},
             'date_uploaded': ('django.db.models.fields.DateField', [], {}),
             'filename': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'map_obj': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['makemap.Map']"})
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
-        u'makemap.map': {
+        u'makemapapp.map': {
             'Meta': {'object_name': 'Map'},
             'area_name': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -54,4 +52,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['makemap']
+    complete_apps = ['makemapapp']

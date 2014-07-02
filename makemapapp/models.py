@@ -1,6 +1,13 @@
 from django.db import models
 
-# Create your models here.
+"""
+I haven't connected the 2 yet.
+But the KML files should in the future be connected to 
+the maps by a KML file can have multiple maps and a map 
+can have mulitple maps.
+This is simpler for the moment than looking at individual
+placemarks and paths.
+"""
 
 class Map(models.Model):
     area_name    = models.CharField(max_length=20)
