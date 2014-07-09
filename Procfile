@@ -1,1 +1,1 @@
-web: gunicorn maps_project.wsgi
+web: python app.py
