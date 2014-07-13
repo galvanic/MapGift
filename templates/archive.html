@@ -8,7 +8,7 @@
     {% for map in map_list %}
         <li>
         <ol>
-            <a href="{% url 'makemapapp:detail' map.id %}">
+            <a href="{{ url_for('detail') map.id }}">
             <li>{{ map.area_name }}</li>
             <li>Zoom {{ map.zoom }}</li>
             <li>{{ map.provider }}</li>
@@ -20,7 +20,7 @@
     {% endfor %}
     </ol>
 {% else %}
-    <p>No maps are available. Why don't you <a href="{% url 'makemapapp:index' %}">make one</a> ?</p>
+    <p>No maps are available. Why don't you <a href="{{ url_for('index') }}">make one</a> ?</p>
 {% endif %}
 
 <p>

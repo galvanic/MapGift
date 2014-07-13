@@ -1,12 +1,10 @@
-{% load staticfiles %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="{% static 'makemapapp/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
   <title>{% block title %}{% endblock %}</title>
 
   <!-- <script src="http://openlayers.org/api/OpenLayers.js"></script> -->
@@ -20,8 +18,8 @@
 <body>
   <header>
     <ul>
-      <li><a href="{% url 'makemapapp:index' %}">Make a new map</a></li>
-      <li><a href="{% url 'makemapapp:archive' %}">Maps already made</a>
+      <li><a href="{{ url_for('index') }}">Make a new map</a></li>
+      <li><a href="{{ url_for('archive') }}">Maps already made</a>
         <ul>
           <li>London</li>
           <li>Paris</li>

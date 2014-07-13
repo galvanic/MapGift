@@ -1,12 +1,4 @@
-from django.shortcuts          import render, get_object_or_404
-from django.http               import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers  import reverse
-from django.utils              import timezone
 
-from django.core.files.storage import default_storage
-from django.core.files.base    import ContentFile
-
-from makemapapp.models import Map, KMLfile
 import mapgift
 
 import cStringIO

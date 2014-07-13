@@ -1,19 +1,2 @@
 .DS_Store
-*.jpg
-*.png
-index.html
-map.html
-
-*~
-*.swp
 *.pyc
-map*.png
-*db.sqlite3
-*.kml
-*.css
-
-examples/
-images/
-
-# this file is for finding big files/blobs in the git repo
-rmcom.py
