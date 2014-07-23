@@ -1,38 +1,38 @@
 # coding: utf-8
 """
-A project based on Nicole's present to me for my departure from Sweden.
+Input
+-----
+A KML file downloaded from internet Google Maps (or its web
+address). => changed to accept the data *from* the KML file
 
 
-Input   A KML file downloaded from internet Google Maps (or its web
-        address). => changed to accept the data *from* the KML file
-        It is a list of placemarks each representing a special place
-        for Nicole and I.
+Output
+------
+A map image representing these special places, ready to be
+sent off to a printing company to be hung on my wall.
+It must therefore be high resolution and present the note for
+each placemark, all with a good design.
 
 
-Output  A map image representing these special places, ready to be
-        sent off to a printing company to be hung on my wall.
-        It must therefore be high resolution and present the note for
-        each placemark, all with a good design.
-
-
-Features    There should be a few map tile styles (basemap providers)
-            to choose from, as well as different placemark icons and
-            also overall presentation of the final map image to be
-            printed. 
-            I'm toying with the idea of turning this into a semi
-            web-app project, which will give me practice in coding
-            with web APIs, and doing web mapping.
+Features
+--------
+There should be a few map tile styles (basemap providers)
+to choose from, as well as different placemark icons and
+also overall presentation of the final map image to be
+printed. 
+I'm toying with the idea of turning this into a semi
+web-app project, which will give me practice in coding
+with web APIs, and doing web mapping.
 
 
 How this works
-        
-        It's important to make the distinction between the map instance, and the map image.
+--------------        
+It's important to make the distinction between the map instance, and the map image.
 
 
-
-Future Improvements
-
-- Support for other types of geographic data such as JSON
+Improvements
+------------
+- Support for other types of geographic data such as in JSON format
     (although I want to keep it limited to placemarks)
 - Put it online: javascript pan-able version, with GeoDjango something ?
 - easier & straightforward customisability:
@@ -84,19 +84,19 @@ Future Improvements
 
 
 More ideas for map design
-    
+-------------------------    
 - give it a different style by using circle shapes
     eg. - make a grid of circles of the places
         - show circled placemarks in different map type than map background
             eg. a black map with placemarks "punched through"
 
 
-Idea for how to organise code:
+Idea for how to organise code
+-----------------------------
 1.  Draw a few map examples like the ones detailed above.
     Make some very different and very similar ones.
 2.  Write step by step code of how to make that map, for each map.
 3.  See overlap in functions / objects used.
-
 
 """
 import re
@@ -156,6 +156,7 @@ def openkml(filename):
         """
         kmldata = kmlfile.read()
     return kmldata
+
 
 def kml2py(kmldata):
     """

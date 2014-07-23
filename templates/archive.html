@@ -8,7 +8,7 @@
     {% for map in map_list %}
         <li>
         <ol>
-            <a href="{{ url_for('detail') map.id }}">
+            <a href="{{ url_for('detail', map_id=map.id) }}">
             <li>{{ map.area_name }}</li>
             <li>Zoom {{ map.zoom }}</li>
             <li>{{ map.provider }}</li>
