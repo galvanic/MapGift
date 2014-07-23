@@ -3,17 +3,16 @@
 {% block content %}
 
 
-<div id="map"></div>
+<div id='map'></div>
 
-<form action="{{ url_for('assemble', map_id=nextmap_id) }}" method="post" enctype="multipart/form-data" id="myForm">
+<form action="{{ url_for('assemble') }}" method='post' enctype='multipart/form-data' id="myForm">
 
+	<input type='hidden' id='mapidField'     name='map_id' value='{{ next_map_id }}' />
 	<input type="hidden" id="mapcentreField" name="coord" value="" />
-	<input type="hidden" id="mapzoomField" name="zoom2" value="" />
+	<input type="hidden" id="mapzoomField"   name="zoom2" value="" />
 
 	<ul>
 		<li class="where">
-			<!-- <label for="where">Where</label>
-			<input type="text" name="where" id="where" placeholder="best city: London ;)" autofocus /> -->
 			<div class="label">Where</div>
 			<ul>
 				<li>
@@ -49,7 +48,7 @@
 		</li>
 		
 		<li class="design">
-			<!-- Automatically generate this map provider list from the mapgift.py file -->
+			<!-- Dynamically generate this map provider list from the mapgift.py file -->
 			<div class="label">Design</div>
 			<ul>
 				{% for shortcut, name in providers.iteritems() %}
@@ -81,8 +80,8 @@
 <script type="text/javascript">
 
 	var places = {
-		"London": new mxn.LatLonPoint(51.50733, -0.12769),
-		"Paris":  new mxn.LatLonPoint(48.8567,	2.3508),
+		"London":    new mxn.LatLonPoint(51.50733, -0.12769),
+		"Paris":     new mxn.LatLonPoint(48.8567,	2.3508),
 		"Stockholm": new mxn.LatLonPoint(59.329444, 18.068611)
 	};
 
