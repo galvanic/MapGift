@@ -1,32 +1,13 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import os
-from flask import  (Flask,
-                    render_template,
+import datetime
+
+from mapapp import app
+from flask import  (render_template,
                     send_from_directory,
                     request)
-from flask.ext.sqlalchemy import SQLAlchemy
 
-
-###
-### initialization
-###
-
-
-with open('keys.txt', 'r') as ifile:
-    csrf_secret_key = ifile.read().strip()
-
-
-app = Flask(__name__)
-app.config.update(
-    DEBUG = True,
-    CSRF_ENABLED = True,
-    SECRET_KEY = csrf_secret_key,
-)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-db = SQLAlchemy(app)
+from models import db
+from models import Map, KMLfile
 
 
 ###
@@ -35,12 +16,21 @@ db = SQLAlchemy(app)
 
 
 import mapgift
+import cStringIO
 
 
 def update_map_list():
     """Gets all map objects from db and the next map id"""
     # counts maps
     return [], 1
+
+
+@app.route('/testdb')
+def testdb():
+    if db.session.query("1").from_statement("SELECT 1").all():
+        return 'It works.'
+    else:
+        return 'Something is broken.'
 
 
 ###
@@ -56,6 +46,11 @@ def css():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
+# @app.teardown_appcontext
+# def shutdown_session(exception=None):
+#     db_session.remove()
 
 
 ###
@@ -101,32 +96,41 @@ def assemble():
                             by_centre    = True,
                             kmlfile      = kmlfile)
     
-    from code import interact; interact(local=dict( globals(), **locals() ))
-
     ## send image off to be stored in S3 through boto
-    
+    m_img_file = cStringIO.StringIO()
+    m_img.save(m_img_file, 'PNG')
+    map_name = 'map%s.png' % str(map_id)
+
+    del m_img, m_img_file
 
     ## save map information as a map object in db
+    where = ', '.join(map(str, coord))
+    m =  Map(
+        area_name    = where, # should reverse geolocalise this to get an actual name
+        zoom         = zoom,
+        map_provider = design,
+        pub_date     = datetime.datetime.now()
+    )
+    # db_session.add(m)
+    # db_session.commit()
 
-
-    return render_template('detail.html')
+    return render_template('detail.html',
+            map = m)
 
 
 @app.route('/detail/<int:map_id>')
 def detail(map_id):
+    ## get map object from the database
 
     return render_template('detail.html',
             map = map_id)
 
 
-###
-### launch app
-###
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+
+
+
 
 
 
