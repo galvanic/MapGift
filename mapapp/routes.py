@@ -23,8 +23,10 @@ import cStringIO
 
 def update_map_list():
     """Gets all map objects from db and the next map id"""
-    # counts maps
-    return [], 1
+    ## get maps
+    map_list = db.session.query(Map).order_by(Map.pub_date.desc()).all()
+    next_map_id = len(map_list)+1
+    return map_list, next_map_id
 
 
 ###
@@ -121,6 +123,7 @@ def assemble():
 
 @app.route('/detail/<int:map_id>')
 def detail(map_id):
+
     ## get map object from the database
     m = db.session.query(Map).filter(Map.id == map_id).one()
     return render_template('detail.html', map = m)
