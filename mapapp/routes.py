@@ -111,11 +111,12 @@ def assemble():
         map_provider = design,
         pub_date     = datetime.datetime.now()
     )
-    # db_session.add(m)
-    # db_session.commit()
+    db.session.add(m)
+    db.session.commit()
 
     return render_template('detail.html',
             map = m)
+    # return redirect(url_for('detail'))
 
 
 @app.route('/detail/<int:map_id>')

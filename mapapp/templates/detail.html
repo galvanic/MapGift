@@ -6,12 +6,6 @@
 <h1>{{ map.area_name }}</h1>
 <a href="https://s3-eu-west-1.amazonaws.com/map-images-jc/map{{ map.id }}.png"><img src="https://s3-eu-west-1.amazonaws.com/map-images-jc/map{{ map.id }}.png"></a>
 <p>Map generated on {{ map.pub_date }} Click on it to get the full size.</p>
-<ul>
-{% for placemark in map.placemark_set.all %}
-    <li>{{ placemark.placemark_title }}</li>
-{% endfor %}
-</ul>
-
 
 {% endblock %}
 
