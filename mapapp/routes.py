@@ -2,9 +2,11 @@ import os
 import datetime
 
 from mapapp import app
-from flask import  (render_template,
+from flask  import  (render_template,
                     send_from_directory,
-                    request)
+                    request,
+                    redirect,
+                    url_for)
 
 from models import db
 from models import Map, KMLfile
@@ -25,14 +27,6 @@ def update_map_list():
     return [], 1
 
 
-@app.route('/testdb')
-def testdb():
-    if db.session.query("1").from_statement("SELECT 1").all():
-        return 'It works.'
-    else:
-        return 'Something is broken.'
-
-
 ###
 ### controllers: other
 ###
@@ -48,9 +42,17 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-# @app.teardown_appcontext
-# def shutdown_session(exception=None):
-#     db_session.remove()
+@app.route('/testdb')
+def testdb():
+    if db.session.query("1").from_statement("SELECT 1").all():
+        return 'It works.'
+    else:
+        return 'Something is broken.'
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.session.remove()
 
 
 ###
@@ -114,17 +116,14 @@ def assemble():
     db.session.add(m)
     db.session.commit()
 
-    return render_template('detail.html',
-            map = m)
-    # return redirect(url_for('detail'))
+    return redirect(url_for('detail', map_id = map_id))
 
 
 @app.route('/detail/<int:map_id>')
 def detail(map_id):
     ## get map object from the database
-
-    return render_template('detail.html',
-            map = map_id)
+    m = db.session.query(Map).filter(Map.id == map_id).one()
+    return render_template('detail.html', map = m)
 
 
 
