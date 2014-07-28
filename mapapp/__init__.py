@@ -4,13 +4,9 @@ from flask import Flask
 app = Flask(__name__)
 
 
-with open('keys.txt', 'r') as ifile:
-    csrf_secret_key = ifile.read().strip()
-
-
 app.config.update(
-    CSRF_ENABLED = True,
-    SECRET_KEY = csrf_secret_key,
+    # CSRF_ENABLED = True,
+    # SECRET_KEY = csrf_secret_key,
 )
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
