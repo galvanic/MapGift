@@ -7,10 +7,13 @@ def main():
 
 	# conn = boto.ec2.connect_to_region("eu-west-1")
 	conn   = boto.connect_s3()
-	bucket = conn.get_bucket("map-images-jc")
+	bucket = conn.get_bucket('map-images-jc')
 
 	for k in bucket.list():
 		print k, k.key
+
+
+	from code import interact; interact(local=dict( globals(), **locals() ))
 
 
 if __name__ == '__main__':

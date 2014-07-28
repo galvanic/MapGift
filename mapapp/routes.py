@@ -29,6 +29,26 @@ def update_map_list():
     return map_list, next_map_id
 
 
+import boto
+from boto.s3.key        import Key
+from boto.s3.connection import S3Connection
+
+
+AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+
+def send_image_s3(img_file, image_filename):
+    """"""
+    conn   = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+    bucket = conn.get_bucket('map-images-jc')
+    k      = Key(bucket)
+    k.key  = image_filename
+    k.set_contents_from_string(img_file.getvalue())
+    k.make_public()
+    return
+
+
 ###
 ### controllers: other
 ###
@@ -104,13 +124,13 @@ def assemble():
     m_img_file = cStringIO.StringIO()
     m_img.save(m_img_file, 'PNG')
     map_name = 'map%s.png' % str(map_id)
-
+    send_image_s3(m_img_file, map_name)
     del m_img, m_img_file
 
     ## save map information as a map object in db
     where = ', '.join(map(str, coord))
     m =  Map(
-        area_name    = where, # should reverse geolocalise this to get an actual name
+        area_name    = where, # TODO should reverse geolocalise this to get an actual name
         zoom         = zoom,
         map_provider = design,
         pub_date     = datetime.datetime.now()
