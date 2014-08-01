@@ -33,15 +33,14 @@ import boto
 from boto.s3.key        import Key
 from boto.s3.connection import S3Connection
 
-
-AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-
+AWS_ACCESS_KEY  = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_KEY  = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
 def send_image_s3(img_file, image_filename):
     """"""
     conn   = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-    bucket = conn.get_bucket('map-images-jc')
+    bucket = conn.get_bucket(AWS_BUCKET_NAME)
     k      = Key(bucket)
     k.key  = image_filename
     k.set_contents_from_string(img_file.getvalue())
