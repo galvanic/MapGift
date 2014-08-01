@@ -96,7 +96,7 @@ def archive():
 
     return render_template('archive.html',
             map_list    = update_map_list()[0],
-            bucket_name = S3_BUCKET_NAME
+            bucket_name = AWS_BUCKET_NAME
             )
 
 
@@ -150,7 +150,7 @@ def detail(map_id):
     m = db.session.query(Map).filter(Map.id == map_id).one()
     return render_template('detail.html',
             map         = m,
-            bucket_name = S3_BUCKET_NAME)
+            bucket_name = AWS_BUCKET_NAME)
 
 
 
