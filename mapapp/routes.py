@@ -87,14 +87,17 @@ def index():
 
     return render_template('index.html',
             providers   = mapgift.PROVIDERS,
-            next_map_id = update_map_list()[1])
+            next_map_id = update_map_list()[1]
+            )
 
 
 @app.route('/archive')
 def archive():
 
     return render_template('archive.html',
-            map_list = update_map_list()[0])
+            map_list    = update_map_list()[0],
+            bucket_name = S3_BUCKET_NAME
+            )
 
 
 @app.route('/assemble', methods=['POST'])
@@ -145,7 +148,9 @@ def detail(map_id):
 
     ## get map object from the database
     m = db.session.query(Map).filter(Map.id == map_id).one()
-    return render_template('detail.html', map = m)
+    return render_template('detail.html',
+            map         = m,
+            bucket_name = S3_BUCKET_NAME)
 
 
 
