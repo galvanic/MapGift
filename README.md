@@ -26,12 +26,14 @@ Getting Started
 
 - **-p** map tile provider; choose from:
 
-	- **osm**: Open Street Map
-	- watercolor: Stamen Watercolor *currently unavailable*
-	- **toner**: Stamen Toner
-	- lines: Stamen Lines *currently unavailable*
-	- lite: Stamen Lite *currently unavailable*
-	- labels: Stamen Labels *currently unavailable*
+	- **osm**: [OpenStreetMap](http://www.openstreetmap.org/about)
+	- the beautiful map tiles made by [Stamen Design](http://stamen.com/):
+
+		- watercolor: [Stamen Watercolor](http://maps.stamen.com/watercolor/) *currently unavailable*
+		- **toner**: [Stamen Toner](http://maps.stamen.com/toner/)
+		- lines: [Stamen Lines](http://maps.stamen.com/toner-lines/) *currently unavailable*
+		- lite: [Stamen Lite](http://maps.stamen.com/toner-lite/) *currently unavailable*
+		- labels: [Stamen Labels](http://maps.stamen.com/toner-labels/) *currently unavailable*
 
 - **-a** area name or coordinates
 - **-z** zoom level (from 1 to 18 technically but here limited from 4 to 15)
@@ -52,4 +54,4 @@ Future improvements
 -------------------
 - Fix other map tile providers and add others
 - New design for front-end
-- Turn `mapgift.py` into a full module
+- Turn `mapgift.py into a full module
