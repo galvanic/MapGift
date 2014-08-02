@@ -17,6 +17,7 @@ from models import Map, KMLfile
 ###
 
 
+from PIL import Image
 import mapgift
 import cStringIO
 
@@ -127,11 +128,20 @@ def assemble():
     m_img.save(m_img_file, 'PNG')
     map_name = 'map%s.png' % str(map_id)
     send_image_s3(m_img_file, map_name)
-    del m_img, m_img_file
+
+    ## make a thumbnail annd send it to AWS
+    m_thumbnail = m_img.resize(map(lambda n: n/4, m_img.size),
+                               Image.ANTIALIAS)
+    m_thumbnail_file = cStringIO.StringIO()
+    m_thumbnail.save(m_thumbnail_file, 'PNG')
+    thumb_name = 'thumbnail%s.png' % str(map_id)
+    send_image_s3(m_thumbnail_file, thumb_name)
+
+    del m_img, m_img_file, m_thumbnail, m_thumbnail_file
 
     ## save map information as a map object in db
     where = ', '.join(map(str, coord))
-    m =  Map(
+    m = Map(
         area_name    = where, # TODO should reverse geolocalise this to get an actual name
         zoom         = zoom,
         map_provider = design,
