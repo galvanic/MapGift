@@ -27,6 +27,7 @@ Getting Started
 - **-p** map tile provider; choose from:
 
 	- **osm**: [OpenStreetMap](http://www.openstreetmap.org/about)
+	- **aerial**: [Microsoft Bing Aerial Maps](http://www.microsoft.com/maps/product/features.aspx)
 	- the beautiful map tiles made by [Stamen Design](http://stamen.com/) (see [Attribution](#attribution) below):
 
 		- **watercolor**: [Stamen Watercolor](http://maps.stamen.com/watercolor/)
@@ -36,6 +37,8 @@ Getting Started
 		- **labels**: [Stamen Toner Labels](http://maps.stamen.com/toner-labels/)
 		- **hybrid**: [Stamen Toner Hybrid](http://maps.stamen.com/toner-hybrid/)
 		- **background**: [Stamen Toner Background](http://maps.stamen.com/toner-background/)
+
+	- Add your own by implementing a `Provider` class in the `providers.py` and adding it to the `PROVIDER` dictionary inside `mapgift.py`
 
 - **-a** area name or coordinates
 - **-z** zoom level (from 1 to 18 technically but here limited from 4 to 15)
