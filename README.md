@@ -21,14 +21,35 @@ sudo pip install modestmaps
 
 Getting Started
 ---------------
-For the moment, I haven't implemented a proper CLI for the mapgift.py script, so you will have to manually change the options for your desired map in the file itself, by changing the values in the `test_param` tuple.
+
+**mapgift.py** takes the following flags:
+
+- **-p** map tile provider; choose from:
+
+	- **osm**: Open Street Map
+	- watercolor: Stamen Watercolor *currently unavailable*
+	- **toner**: Stamen Toner
+	- lines: Stamen Lines *currently unavailable*
+	- lite: Stamen Lite *currently unavailable*
+	- labels: Stamen Labels *currently unavailable*
+
+- **-a** area name or coordinates
+- **-z** zoom level (from 1 to 18 technically but here limited from 4 to 15)
+- **-c** whether to interpret area coordinates as centre or not
+- **-k** filepath of kmlfile to use, if at all
+- **-o** output filepath, without the extension
+- **-v** verbosity
+- **-s** shows the map with your system's default preview application
+- **-i** opens an interactive shell in the local environment
+
+For example:
 
 ```shell
-./mapgift.py
+mapapp/mapgift.py -vsi -a london -p toner -z 12
 ```
 
 Future improvements
 -------------------
 - Fix other map tile providers and add others
-- Implement CLI for mapgift.py
 - New design for front-end
+- Turn `mapgift.py` into a full module

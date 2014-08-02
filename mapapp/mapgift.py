@@ -1,4 +1,6 @@
+#!/usr/bin/env python
 # coding: utf-8
+
 """
 Input
 -----
@@ -34,7 +36,6 @@ Improvements
 ------------
 - Support for other types of geographic data such as in JSON format
     (although I want to keep it limited to placemarks)
-- Put it online: javascript pan-able version, with GeoDjango something ?
 - easier & straightforward customisability:
     - map type
     - map provider
@@ -101,6 +102,8 @@ Idea for how to organise code
 """
 import re
 import os
+import sys
+import click
 
 from helper import makeSwedishDate as sw
 from helper import makeSmaller
@@ -111,43 +114,43 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 
 MAP_BOX = {
-    "central":      ((59.356, 18.000),  (59.303, 18.137)),
-    "suburb":       ((59.382, 17.931),  (59.277, 18.206)),
-    "wKista":       ((59.434, 17.794),  (59.224, 18.343)),
-    "wTyresta":     ((59.539, 17.519),  (59.119, 18.618)),
-    "southSweden":  ((62.533, 9.272),   (55.801, 26.851)),
-    "Sweden":       ((65.422, 0.483),   (51.917, 35.640)),
-    "northEurope":  ((70.348, -17.051), (43.005, 53.262)),
-    "Europe":       ((77.542, -52.207), (20.961, 88.418)),
-    "world":        ((85.021, -122.695),(-29.841, 158.555)),
+    'central':      ((59.356, 18.000),  (59.303, 18.137)),
+    'suburb':       ((59.382, 17.931),  (59.277, 18.206)),
+    'wkista':       ((59.434, 17.794),  (59.224, 18.343)),
+    'wtyresta':     ((59.539, 17.519),  (59.119, 18.618)),
+    'southsweden':  ((62.533, 9.272),   (55.801, 26.851)),
+    'sweden':       ((65.422, 0.483),   (51.917, 35.640)),
+    'northeurope':  ((70.348, -17.051), (43.005, 53.262)),
+    'europe':       ((77.542, -52.207), (20.961, 88.418)),
+    'world':        ((85.021, -122.695),(-29.841, 158.555)),
 
-    "Stockholm":    ((59.382, 17.931),  (59.277, 18.206)),
-    "London":       ((51.535, -0.239),  (51.45,  -0.046)),
-    "Paris":        ((48.902, 2.241),   (48.810, 2.429)),
+    'stockholm':    ((59.382, 17.931),  (59.277, 18.206)),
+    'london':       ((51.535, -0.239),  (51.45,  -0.046)),
+    'paris':        ((48.902, 2.241),   (48.810, 2.429)),
 
-    "France":       ((50.345, -8.0454), (41.705, 7.9286)),
+    'france':       ((50.345, -8.0454), (41.705, 7.9286)),
 
-}   # "area_name":  (lat lon of top left corner, lat lon bottom right corner)
+}   # 'area_name':  (lat lon of top left corner, lat lon bottom right corner)
 
 CENTRE = {
-    "Stockholm":    (59.329444, 18.068611),
-    "London":       (51.507222, -0.1275),
-    "Paris":        (48.8567,   2.3508),
+    'stockholm':    (59.329444, 18.068611),
+    'london':       (51.507222, -0.1275),
+    'paris':        (48.8567,   2.3508),
 
-    "France":       (46.164614, -0.860367),
+    'france':       (46.164614, -0.860367),
 }
 
-PROVIDERS = {   'osm':      'OPENSTREETMAP',
-                # 'watercolor':'STAMEN_WATERCOLOR',
-                # 'toner':  'STAMEN_TONER',
-                # 'lines':  'STAMEN_TONER_LINES',
+PROVIDERS = {   'osm':        'OPENSTREETMAP',
+                # 'watercolor': 'STAMEN_WATERCOLOR',
+                'toner':      'STAMEN_TONER',
+                # 'lines':      'STAMEN_TONER_LINES',
                 # 'lite':       'STAMEN_TONER_LITE',
-                # 'labels': 'STAMEN_TONER_LABELS',
+                # 'labels':     'STAMEN_TONER_LABELS',
 }
 
 
 def openkml(filename):
-    with open(filename, "r") as kmlfile:
+    with open(filename, 'r') as kmlfile:
         """
         if kmlfile.info().gettype() == 'text/xml':
             file = kmlfile.read()
@@ -187,13 +190,13 @@ def kml2py(kmldata):
         if match:
             pldict['name'] = match.group(1)
         else:
-            pldict['name'] = "Placemark %d" % i
+            pldict['name'] = 'Placemark %d' % i
 
         match = re.search(r'CDATA\[(<div dir="ltr">)?(.*?)(</div>)?\]\]', code)
         if match:
             pldict['desc'] = match.group(2)
         else:
-            pldict['desc'] = ""
+            pldict['desc'] = ''
     
         # 2 possibilities, either a Point, or a Line
         match = re.search(r'<Point>', code)
@@ -221,20 +224,33 @@ def kml2py(kmldata):
     return placemarks 
 
 
-def makeMap(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False):
+def make_map(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False):
     """
     zoom:   integer, the zoom level (altitude)
             min 12; max 15 in this case
 
     Returns a map instance (not image!)
     """
+    area = area.lower()
     zoom = int(zoom)+1
 
     provider = PROVIDERS[provider.lower()]
+
+    if verbose:
+        title = 'Making map with the following characteristics:'
+        print '\n%s' % title
+        print '-' * len(title)
+        print 'Area:     %s' % area.title()
+        print 'Zoom:     %d' % zoom
+        print 'Provider: %s' % provider.title().replace('_', ' ')
+        print 'Height:   %dpx' % map_size[1]
+        print 'Width:    %dpx' % map_size[0]
+        print
+
     provider = MM.builtinProviders[provider]()
     
     if by_centre:
-        if type(area) == str:
+        if type(area) in (str, unicode):
             centre = CENTRE[area]
         elif type(area) == tuple:
             centre = area
@@ -250,7 +266,7 @@ def makeMap(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False)
             print m.pointLocation(MM.Core.Point(width,height))  # to get the lower right corner geo coordinates
     
     else: # by box
-        if type(area) == str:
+        if type(area) in (str, unicode):
             map_box = MAP_BOX[area]
         elif type(area) == tuple:
             map_box = area
@@ -264,15 +280,16 @@ def makeMap(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False)
     return m
 
 
-def drawMap(m, verbose=False):
+def draw_map(m, verbose=False):
     """Takes a map instance and 'draws' it by calling all the map tiles and stitching them together."""
     map_image = m.draw(verbose)
     return map_image
 
 
 def makeLayer(map_image, colour=None):
-    params = ("RGBA", map_image.size)
-    if colour or colour != "transparent":
+    """"""
+    params = ('RGBA', map_image.size)
+    if colour or colour != 'transparent':
         params += (colour,)
     layer = Image.new(*params)
     return layer
@@ -287,11 +304,11 @@ def invert(image, x):
     return image
 
 def grayscale(image, x):
-    image = image.convert('L').convert("RGBA")
+    image = image.convert('L').convert('RGBA')
     return image
 
 def grainyBW(image, x):
-    image = image.convert('1').convert("RGBA")
+    image = image.convert('1').convert('RGBA')
     return image
 
 def brightness(image, x=1.0):
@@ -299,11 +316,12 @@ def brightness(image, x=1.0):
 
 ###
 
-def addNum(image, number, size_param=0.5, colour="black", location=(0,0)):
+def addNum(image, number, size_param=0.5, colour='black', location=(0,0)):
+    """"""
     w, h = image.size
     text_size = int(h*size_param)
 
-    fontpath = "/Library/Fonts/Georgia.ttf"
+    fontpath = '/Library/Fonts/Georgia.ttf'
     font = ImageFont.truetype(fontpath, text_size)
 
     draw = ImageDraw.Draw(image)
@@ -312,13 +330,15 @@ def addNum(image, number, size_param=0.5, colour="black", location=(0,0)):
 
 
 def addLabel(image, label, size, loc):
+    """"""
     addNum(image, num, 0.02, location=loc)
     return
 
 
 def addLine(m, image, coordinates, num, placemark_params):
+    """"""
     thickness, colour = placemark_params[1:]
-    if not colour or colour == "transparent":
+    if not colour or colour == 'transparent':
         colour = (255, 0, 0, 0)
 
     points = list()
@@ -338,7 +358,7 @@ def addCircle(image, loc, placemark_params, num):
     d:  integer, the diametre of the placemark circle to draw
     """
     d, colour = placemark_params[1:]
-    if not colour or colour == "transparent":
+    if not colour or colour == 'transparent':
         colour = (255, 0, 0, 0)
 
     x, y = loc
@@ -353,27 +373,30 @@ def addCircle(image, loc, placemark_params, num):
 
 
 def addPlacemarkImage(map_image, placemark_image, loc, placemark_params):
+    """"""
     size, colour = placemark_params[1:]
     mask = Image.open(placemark_image)
     mask = makeSmaller(mask, size)
     w, h = mask.size
     x, y = loc
     loc = (int(x-w/2), int(y-h))
-    background = Image.new("RGBA", (w, h), colour)
+    background = Image.new('RGBA', (w, h), colour)
     map_image.paste(background, loc, mask)
     return
 
 
 def addPlacemarkXY(image, loc, num, placemark_params):
+    """"""
     placemark_type = placemark_params[0]
     # should have a function for size of placemark relative to size of map images
-    if placemark_type == "circle":
+    if placemark_type == 'circle':
         addCircle(image, loc, placemark_params, num)
-    elif placemark_type == "image":
-        addPlacemarkImage(image, "heart.png", loc, placemark_params)
+    elif placemark_type == 'image':
+        addPlacemarkImage(image, 'heart.png', loc, placemark_params)
     return
 
 def addPlacemark(m, image, coor, num, placemark_params):
+    """"""
     loc  = MM.Geo.Location(*coor)
     loc  = m.locationPoint(loc)
     # should add code to Core.Point so that I can unpack it like a tuple
@@ -385,6 +408,7 @@ def addPlacemark(m, image, coor, num, placemark_params):
 
 
 def addPlacemarks(m, image, placemarks, placemark_params, verbose=False):
+    """"""
     for i, pldict in enumerate(placemarks, 1):
         coordinates = pldict['coor']
         if type(coordinates) == tuple:
@@ -398,49 +422,51 @@ def addPlacemarks(m, image, placemarks, placemark_params, verbose=False):
         else:
             pass # problem
         if verbose:
-            print "%d Added - %s - to the map." % (i, pldict['name'])
+            print '%d Added - %s - to the map.' % (i, pldict['name'])
     return
 
 
 def addLayer(image, layer, mask=None):
+    """"""
     if not mask:
         mask = layer
     image.paste(layer, (0,0), mask)
     return image
 
 
-def saveMap(m, where="examples/", filename="map", inc_date=True, verbose=False):
+def save_map(m, filename='map', inc_date=True, verbose=False):
+    """"""
     if inc_date:
-        filename += str(sw(time.localtime()))+".png"
-    else:
-        filename += ".png"
-    m.save(where+filename)
+        filename += str(sw(time.localtime()))
+    filename += '.png'
+    m.save(filename)
     if verbose:
-        print "Image saved."
+        print 'Image saved to %s' % filename
     return
 
 
 def assembleMap(map_type, area, zoom, by_centre, placemark_params, kmlfile, verbose=False):
+    """"""
     map1, map2 = map_type
 
-    map_inst  = makeMap(map1, area, int(zoom), by_centre=by_centre)
-    map_image = drawMap(map_inst, verbose)
+    map_inst  = make_map(map1, area, int(zoom), by_centre=by_centre)
+    map_image = draw_map(map_inst, verbose)
     """
-    if map_type in ["lines", "labels", "lite"]:
+    if map_type in ['lines', 'labels', 'lite']:
         map_image = invert(map_image)
     """
 
     # map for the placemark circles
     if map1 != map2:
-        map2_inst  = makeMap(map2, area, int(zoom), by_centre=by_centre)
-        map2_image = drawMap(map2_inst, verbose)
+        map2_inst  = make_map(map2, area, int(zoom), by_centre=by_centre)
+        map2_image = draw_map(map2_inst, verbose)
     elif map1 == map2:
         map2_image = map_image.copy()
 
     # makes a black background with holes in it for the placemark locations
-    placemark_layer = makeLayer(map_image, "black")
-    if kmlfile[-3:] == "kml":
-        kmlfile = os.path.join("kml_files", kmlfile)
+    placemark_layer = makeLayer(map_image, 'black')
+    if kmlfile[-3:] == 'kml':
+        kmlfile = os.path.join('kml_files', kmlfile)
         kmldata = openkml(kmlfile)
     else:
         kmldata = kmlfile
@@ -449,7 +475,7 @@ def assembleMap(map_type, area, zoom, by_centre, placemark_params, kmlfile, verb
 
     # makes a placemark mask
     placemark_mask = makeLayer(map_image, None)
-    addPlacemarks(map_inst, placemark_mask, places, placemark_params[:-1]+("black",))
+    addPlacemarks(map_inst, placemark_mask, places, placemark_params[:-1]+('black',))
 
     # add placemark layer to the second map which will be the layer to the first map
     layer = addLayer(map2_image, placemark_layer)
@@ -467,7 +493,7 @@ def assembleMap(map_type, area, zoom, by_centre, placemark_params, kmlfile, verb
     return map_image
 
 
-def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None):
+def addViewport(map1, map_image, map2, thickness=1, colour='black', params=None):
     """
     map1:   instance of Map, the higher altitude map on which the viewport is pasted
     map2:   instance of Map, the lower altitude map
@@ -478,10 +504,10 @@ def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None)
                             eg. ((lat1, lon1), (lat2, lon2))
 
     Improvements
-
-        Ugh, really don't like the global viewport variable thing
-        What if I want to have 2 viewports ? Ok, it works.
-        Still, it feels meh, maybe reduce and/or map would have been cleaner.
+    ------------
+    Ugh, really don't like the global viewport variable thing
+    What if I want to have 2 viewports ? Ok, it works.
+    Still, it feels meh, maybe reduce and/or map would have been cleaner.
     """
     if type(map2) != tuple:
         pass
@@ -522,34 +548,65 @@ def addViewport(map1, map_image, map2, thickness=1, colour="black", params=None)
     return map_image
 
 
-def main(map_provider, area, zoom, by_centre, kmlfile):
-    placemark_params = ("circle", 50, "transparent")
+@click.command()
+@click.option('map_provider',  '-p', '--provider',    default='osm',
+                                                        type=click.Choice(['osm', 'watercolor', 'toner', 'lines', 'lite', 'labels']),
+                                                        help='Name of map tile provider.')
+@click.option('area',          '-a', '--area',        prompt='Area',
+                                                        help='Name of area.')
+@click.option('zoom',          '-z', '--zoom',        default=10,
+                                                        type=click.IntRange(4, 15, clamp=True),
+                                                        help='Zoom level.')
+@click.option('by_centre',     '-c', '--by-centre',   default=False,
+                                                        help='Whether area coordinates are interpreted as the centre.')
+@click.option('kmlfile',       '-k', '--kmlfile',     default=None,
+                                                        type=click.Path(exists=False),
+                                                        help='Output filepath.')
+@click.option('ofilepath',     '-o', '--ofilepath',   default=None,
+                                                        type=click.Path(exists=False),
+                                                        help='Output filepath.')
+@click.option('verbose',       '-v', '--verbose',     default=False, is_flag=True,
+                                                        help='Verbosity.')
+@click.option('show',          '-s', '--show',        default=False, is_flag=True,
+                                                        help='Show map.')
+@click.option('interactive',   '-i', '--interactive', default=False, is_flag=True,
+                                                        help='Opens interactive console at end of script to play with map.')
+def main(map_provider, area, zoom, by_centre, kmlfile, ofilepath, verbose, show, interactive):
+    """"""
+    placemark_params = ('circle', 50, 'transparent')
 
-    m   = makeMap(map_provider, area, zoom, by_centre)
+    ## m is a map instance
+    m = make_map(map_provider, area, zoom, by_centre, verbose=verbose)
+
     if not kmlfile:
-        return drawMap(m)
+        img = draw_map(m)
+    else:
+        img = assembleMap((map_provider, map_provider), area, zoom, by_centre, placemark_params, kmlfile)
 
-    img = assembleMap((map_provider, map_provider), area, zoom, by_centre, placemark_params, kmlfile)
+    if ofilepath:
+        save_map(img, filename=ofilepath, inc_date=True, verbose=verbose)
 
-    # img = addViewport(m, img, MAP_BOX["central"], 5)
-    # img = addViewport(m, img, MAP_BOX["wKista"], 10)
+    if show:
+        img.show()
+
+    if interactive:
+        from code import interact; interact(local=dict( globals(), **locals() ))
+
+    # img = addViewport(m, img, MAP_BOX['central'], 5)
+    # img = addViewport(m, img, MAP_BOX['wKista'], 10)
     return img
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     # for quick access
-    paris_params = ("toner", "Paris", 14, False, "SummerinParis.kml")
-    stockholm_params = ("watercolor", "suburb", 14, False, "JustineandNicoleinStockholm.kml")
-    london_params = ("lite", "London", 15, False, "Imperialyears.kml")
+    paris_params     = ('toner',      'Paris',  14, False, 'SummerinParis.kml')
+    stockholm_params = ('watercolor', 'suburb', 14, False, 'JustineandNicoleinStockholm.kml')
+    london_params    = ('lite',       'London', 15, False, 'Imperialyears.kml')
 
-    test_params = ("osm", "London", 15, False, "Imperialyears.kml")
+    test_params      = ('osm',        'London', 15, False, 'Imperialyears.kml')
 
-    # sys.exit(main())
-    m = main(*test_params)
-    saveMap(m)
-    m.show()
-    del m
+    sys.exit(main())
 
 
 
