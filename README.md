@@ -27,13 +27,15 @@ Getting Started
 - **-p** map tile provider; choose from:
 
 	- **osm**: [OpenStreetMap](http://www.openstreetmap.org/about)
-	- the beautiful map tiles made by [Stamen Design](http://stamen.com/):
+	- the beautiful map tiles made by [Stamen Design](http://stamen.com/) (see [Attribution](#attribution) below):
 
-		- watercolor: [Stamen Watercolor](http://maps.stamen.com/watercolor/) *currently unavailable*
+		- **watercolor**: [Stamen Watercolor](http://maps.stamen.com/watercolor/)
 		- **toner**: [Stamen Toner](http://maps.stamen.com/toner/)
-		- lines: [Stamen Lines](http://maps.stamen.com/toner-lines/) *currently unavailable*
-		- lite: [Stamen Lite](http://maps.stamen.com/toner-lite/) *currently unavailable*
-		- labels: [Stamen Labels](http://maps.stamen.com/toner-labels/) *currently unavailable*
+		- **lines**: [Stamen Toner Lines](http://maps.stamen.com/toner-lines/)
+		- **lite**: [Stamen Toner Lite](http://maps.stamen.com/toner-lite/)
+		- **labels**: [Stamen Toner Labels](http://maps.stamen.com/toner-labels/)
+		- **hybrid**: [Stamen Toner Hybrid](http://maps.stamen.com/toner-hybrid/)
+		- **background**: [Stamen Toner Background](http://maps.stamen.com/toner-background/)
 
 - **-a** area name or coordinates
 - **-z** zoom level (from 1 to 18 technically but here limited from 4 to 15)
@@ -55,3 +57,10 @@ Future improvements
 - Fix other map tile providers and add others
 - New design for front-end
 - Turn `mapgift.py into a full module
+
+
+Attribution
+-----------
+Some of the map designs provided by this program are © Stamen Design, under a Creative Commons Attribution (CC BY 3.0) license:
+Map tiles by [Stamen Design](http://stamen.com), under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0).
+Data by [OpenStreetMap](http://openstreetmap.org), under [CC BY SA](http://creativecommons.org/licenses/by-sa/3.0).

@@ -2,6 +2,13 @@
 # coding: utf-8
 
 """
+Attribution
+-----------
+Some of the map designs provided by this program are © Stamen Design, under a Creative Commons Attribution (CC BY 3.0) license:
+Map tiles by [Stamen Design](http://stamen.com), under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0).
+Data by [OpenStreetMap](http://openstreetmap.org), under [CC BY SA](http://creativecommons.org/licenses/by-sa/3.0).
+
+
 Input
 -----
 A KML file downloaded from internet Google Maps (or its web
