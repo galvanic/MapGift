@@ -141,11 +141,12 @@ CENTRE = {
 }
 
 PROVIDERS = {   'osm':        'OPENSTREETMAP',
-                # 'watercolor': 'STAMEN_WATERCOLOR',
+                'watercolor': 'STAMEN_WATERCOLOR',
                 'toner':      'STAMEN_TONER',
-                # 'lines':      'STAMEN_TONER_LINES',
-                # 'lite':       'STAMEN_TONER_LITE',
-                # 'labels':     'STAMEN_TONER_LABELS',
+                'lines':      'STAMEN_TONER_LINES',
+                'lite':       'STAMEN_TONER_LITE',
+                'labels':     'STAMEN_TONER_LABELS',
+                'aerial':     'MICROSOFT_AERIAL',
 }
 
 
@@ -550,7 +551,7 @@ def addViewport(map1, map_image, map2, thickness=1, colour='black', params=None)
 
 @click.command()
 @click.option('map_provider',  '-p', '--provider',    default='osm',
-                                                        type=click.Choice(['osm', 'watercolor', 'toner', 'lines', 'lite', 'labels']),
+                                                        # type=click.Choice(['osm', 'watercolor', 'toner', 'lines', 'lite', 'labels']),
                                                         help='Name of map tile provider.')
 @click.option('area',          '-a', '--area',        prompt='Area',
                                                         help='Name of area.')
