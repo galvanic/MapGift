@@ -104,10 +104,11 @@ import re
 import os
 import sys
 import click
+import time # to put date in saved images' filename
 
 from helper import makeSwedishDate as sw
 from helper import makeSmaller
-import time # to put date in saved images' filename
+import providers
 
 import ModestMaps as MM # I had to manually add the Stamen code
 from PIL import Image, ImageDraw, ImageFont, ImageOps
@@ -141,11 +142,14 @@ CENTRE = {
 }
 
 PROVIDERS = {   'osm':        'OPENSTREETMAP',
-                'watercolor': 'STAMEN_WATERCOLOR',
+                # 'watercolor': 'STAMEN_WATERCOLOR', # Stamen changed it to jpg ?? in place of the png in ModestMaps
                 'toner':      'STAMEN_TONER',
-                'lines':      'STAMEN_TONER_LINES',
-                'lite':       'STAMEN_TONER_LITE',
-                'labels':     'STAMEN_TONER_LABELS',
+                'watercolor': providers.StamenWatercolorProvider,
+                'lines':      providers.StamenTonerLinesProvider,
+                'lite':       providers.StamenTonerLiteProvider,
+                'labels':     providers.StamenTonerLabelsProvider,
+                'hybrid':     providers.StamenTonerHybridProvider,
+                'background': providers.StamenTonerBackgroundProvider,
                 'aerial':     'MICROSOFT_AERIAL',
 }
 
@@ -233,7 +237,7 @@ def make_map(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False
     Returns a map instance (not image!)
     """
     area = area.lower()
-    zoom = int(zoom)+1
+    zoom = int(zoom)
 
     provider = PROVIDERS[provider.lower()]
 
@@ -243,13 +247,19 @@ def make_map(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False
         print '-' * len(title)
         print 'Area:     %s' % area.title()
         print 'Zoom:     %d' % zoom
-        print 'Provider: %s' % provider.title().replace('_', ' ')
+        if type(provider) == str:
+            print 'Provider: %s' % provider.title().replace('_', ' ')
+        else:
+            print 'Provider: %s' % provider.__name__
         print 'Height:   %dpx' % map_size[1]
         print 'Width:    %dpx' % map_size[0]
         print
 
-    provider = MM.builtinProviders[provider]()
-    
+    if type(provider) == str:
+        provider = MM.builtinProviders[provider]()
+    else: # it must be a custom provider
+        provider = provider()
+
     if by_centre:
         if type(area) in (str, unicode):
             centre = CENTRE[area]
