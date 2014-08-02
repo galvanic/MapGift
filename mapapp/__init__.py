@@ -5,11 +5,6 @@ import os
 
 app = Flask(__name__)
 
-app.config.update(
-    # CSRF_ENABLED = True,
-    # SECRET_KEY = csrf_secret_key,
-)
-
 ### Database stuff
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']

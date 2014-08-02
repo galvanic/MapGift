@@ -21,7 +21,6 @@ from PIL import Image
 import mapgift
 import cStringIO
 
-
 def update_map_list():
     """Gets all map objects from db and the next map id"""
     ## get maps

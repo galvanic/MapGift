@@ -236,7 +236,8 @@ def make_map(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False
 
     Returns a map instance (not image!)
     """
-    area = area.lower()
+    if type(area) in (str, unicode):
+        area = area.lower()
     zoom = int(zoom)
 
     provider = PROVIDERS[provider.lower()]
@@ -245,7 +246,10 @@ def make_map(provider, area, zoom, by_centre, map_size=(1200,800), verbose=False
         title = 'Making map with the following characteristics:'
         print '\n%s' % title
         print '-' * len(title)
-        print 'Area:     %s' % area.title()
+        if type(area) in (str, unicode):
+            print 'Area:     %s' % area.title()
+        else:
+            print 'Area:     %s' % area
         print 'Zoom:     %d' % zoom
         if type(provider) == str:
             print 'Provider: %s' % provider.title().replace('_', ' ')
@@ -559,30 +563,8 @@ def addViewport(map1, map_image, map2, thickness=1, colour='black', params=None)
     return map_image
 
 
-@click.command()
-@click.option('map_provider',  '-p', '--provider',    default='osm',
-                                                        # type=click.Choice(['osm', 'watercolor', 'toner', 'lines', 'lite', 'labels']),
-                                                        help='Name of map tile provider.')
-@click.option('area',          '-a', '--area',        prompt='Area',
-                                                        help='Name of area.')
-@click.option('zoom',          '-z', '--zoom',        default=10,
-                                                        type=click.IntRange(4, 15, clamp=True),
-                                                        help='Zoom level.')
-@click.option('by_centre',     '-c', '--by-centre',   default=False,
-                                                        help='Whether area coordinates are interpreted as the centre.')
-@click.option('kmlfile',       '-k', '--kmlfile',     default=None,
-                                                        type=click.Path(exists=False),
-                                                        help='Output filepath.')
-@click.option('ofilepath',     '-o', '--ofilepath',   default=None,
-                                                        type=click.Path(exists=False),
-                                                        help='Output filepath.')
-@click.option('verbose',       '-v', '--verbose',     default=False, is_flag=True,
-                                                        help='Verbosity.')
-@click.option('show',          '-s', '--show',        default=False, is_flag=True,
-                                                        help='Show map.')
-@click.option('interactive',   '-i', '--interactive', default=False, is_flag=True,
-                                                        help='Opens interactive console at end of script to play with map.')
-def main(map_provider, area, zoom, by_centre, kmlfile, ofilepath, verbose, show, interactive):
+def main(map_provider, area, zoom, by_centre, kmlfile,
+         ofilepath=None, verbose=False, show=False, interactive=False):
     """"""
     placemark_params = ('circle', 50, 'transparent')
 
@@ -608,6 +590,33 @@ def main(map_provider, area, zoom, by_centre, kmlfile, ofilepath, verbose, show,
     return img
 
 
+@click.command()
+@click.option('map_provider',  '-p', '--provider',    default='osm',
+                                                        # type=click.Choice(['osm', 'watercolor', 'toner', 'lines', 'lite', 'labels']),
+                                                        help='Name of map tile provider.')
+@click.option('area',          '-a', '--area',        prompt='Area',
+                                                        help='Name of area.')
+@click.option('zoom',          '-z', '--zoom',        default=10,
+                                                        type=click.IntRange(7, 16, clamp=True),
+                                                        help='Zoom level.')
+@click.option('by_centre',     '-c', '--by-centre',   default=False,
+                                                        help='Whether area coordinates are interpreted as the centre.')
+@click.option('kmlfile',       '-k', '--kmlfile',     default=None,
+                                                        type=click.Path(exists=False),
+                                                        help='Output filepath.')
+@click.option('ofilepath',     '-o', '--ofilepath',   default=None,
+                                                        type=click.Path(exists=False),
+                                                        help='Output filepath.')
+@click.option('verbose',       '-v', '--verbose',     default=False, is_flag=True,
+                                                        help='Verbosity.')
+@click.option('show',          '-s', '--show',        default=False, is_flag=True,
+                                                        help='Show map.')
+@click.option('interactive',   '-i', '--interactive', default=False, is_flag=True,
+                                                        help='Opens interactive console at end of script to play with map.')
+def cli(*args, **kwargs):
+    return main(*args, **kwargs)
+
+
 if __name__ == '__main__':
 
     # for quick access
@@ -617,7 +626,7 @@ if __name__ == '__main__':
 
     test_params      = ('osm',        'London', 15, False, 'Imperialyears.kml')
 
-    sys.exit(main())
+    sys.exit(cli())
 
 
 
