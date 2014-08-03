@@ -37,12 +37,12 @@
 			<div class="label">Zoom level</div>
 			<ul>
 				<li>
-					<input type="radio" name="zoom" value="12" id="12" />
-					<label for="12">City view</label>
+					<input type="radio" name="zoom" value="13" id="13" />
+					<label for="13">City view</label>
 				</li>
 				<li>
-					<input type="radio" name="zoom" value="14" id="14" />
-					<label for="14">Street view</label>
+					<input type="radio" name="zoom" value="15" id="15" />
+					<label for="15">Street view</label>
 				</li>
 			</ul>
 		</li>
@@ -54,14 +54,14 @@
 				{% for shortcut, name in providers.iteritems() %}
 				<li>
 					<input type="radio" name="design" value="{{ shortcut }}" id="{{ shortcut }}" />
-					<label for="{{ shortcut }}">{{ name|lower }}</label>
+					<label for="{{ shortcut }}">{{ shortcut|title }}</label>
 				</li>
 				{% endfor %}
 			</ul>
 		</li>
 
 		<li class="placemarks">
-			<div class"optional field">
+			<div class"optional">
 			<div class="label"><label for="placemarks">Placemarks</label></div>
 			<ul>
 				<li>
@@ -72,7 +72,9 @@
 		</li>
 	</ul>
 
+	{% if config.debug %}
 	<input type="button" id="disp" value="Get coordinates" />
+	{% endif %}
 	<input type="submit" id="generate-map" name="submit" value="Generate Map n°{{ next_map_id }}" onClick="mySubmit()" />
 </form>
 

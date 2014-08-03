@@ -57,9 +57,10 @@ mapapp/mapgift.py -vsi -a london -p toner -z 12
 
 Future improvements
 -------------------
-- Fix other map tile providers and add others
-- New design for front-end
-- Turn `mapgift.py into a full module
+- fix the confusion over "zoom level" and "amount of detail"
+- change javascript map provider
+- more interactivity
+- Refactor `mapgift.py` module
 
 
 Attribution

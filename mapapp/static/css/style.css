@@ -1,29 +1,27 @@
 /*
-Color theme: grey;
-darkest: rgb(115,115,115);
-dark: rgb(180,180,180);
-light: rgb(229,229,229);
-lighter: rgb(242,242,242);
-
 600=1*3*2-2*3*2-7*2-x*3
 568/3=190
+
+WhiteSmoke
+PlantationWhite
+WeddingVeil
+gray99
 */
 
-
-/*Heavy, not recommended to keep this, only use for development*/
-* {
-	margin: 0;
-	padding: 0;
-}
+/* GENERAL */
 
 body {
-	background-color: rgb(229,229,229);
+	font-size: 0.9em;
+	background-color: WeddingVeil;
 	width: 604px;
 	margin: auto;
-	padding-top: 10px;
+	padding-top: 50px;
+	font-family: Helvetica, sans-serif;
 }
 
 ul, ol {
+	margin: 0;
+	padding: 0;
 	list-style: none;
 }
 
@@ -32,38 +30,44 @@ a {
 	text-decoration: none;
 }
 
+div#content a, footer a {
+	text-decoration: underline;
+}
 
+/* THE BLACK LABEL STYLE */
+
+header li a, form > ul > li > ul> li > label {
+	background-color: black;
+	color: white;
+	display: inline-block;
+	padding: 2px 5px 2px 20px;
+	margin: 1px;
+}
+
+/* MENU BAR */
+
+header li a {
+	margin-left: 0px;
+	border: 1px solid black;
+}
+
+header ul {
+	margin-bottom: 1px;
+}
 
 header li {
 	display: inline-block;
-	padding: 10px 0px;
-	margin-right: 2px; // remember that there's a default space of 4px already
+	margin-right: -2px;
 }
 
-header li a, header li li a {
-	padding: 10px 20px;
-	font-family: 'Varela Round', sans-serif;
-}
-
-/*Main menu links*/
-header li a {
-	background-color: rgb(180,180,180);
-}
-
-/*Sub links to maps of specific places*/
-header li li a, header li li {
-	background-color: rgb(180,180,180);
-	color: rgb(242,242,242);
-	display: none;
-}
-
-
+/* MAIN CONTENT */
 
 div#map {
-	margin-top: -6px;
-	border: 2px solid rgb(180,180,180);
+	border: 1px solid black;
 	width: 600px;
 	height: 400px;
+	position: absolute;
+	z-index: -1;
 }
 
 /*These are the images in the Archive*/
@@ -71,11 +75,15 @@ div#map {
 	width: 300px;
 	height: 200px;
 	border: solid black 1px;
-	margin: 0px 3px 3px 0;
+	margin: 0px 1px 2px 0;
 	padding: 2px;
 }
 
-div#content ol > li {
+#content > ol {
+	width: 650px;
+}
+
+#content ol > li {
 	display: inline-block;
 }
 
@@ -86,89 +94,51 @@ div#content ol > li {
 	padding: 3px;
 }
 
+#content h1 {
+	display: none;
+}
+
 /*This is so that details of the images don't appear on the archive page*/
 ol li li:not(.img) {
 	display: none;
 }
 
-/*Hiding this because title is only a set of coordinates for the moment*/
-#content h1 {
-	display: none;
-}
-
-
-
-#content {
-	margin: 6px -30px 0 0;
-}
-
-div#content a {
-	text-decoration: underline;
-}
-
-div#content p {
-	margin: 15px;
-}
-
-
+/* THE FORM ELEMENTS (index page only) */
 
 form {
-	margin-top: 6px;
-	font-family: 'Varela Round', sans-serif;
 	position: relative;
-	width: 600px;
-	height: 180px;
-	border: rgb(180,180,180) solid 2px;
 }
 
-form > ul > li {
-	background-color: rgb(200,200,200);
+form > ul > li, form input[type=submit] {
 	position: absolute;
-	display: inline-block;
-	width: 200px;
-	height: 130px;
 }
 
-form .label {
-	font-size: 1.4em;
-	background-color: rgb(180,180,180);
-	padding: 10px 20px;
+form > ul > li.design {
+	/*width: 1px;*/
+}
+
+form li.where {
+	top: 332px;
+	width: 1px;
 }
 
 form li.design {
-	left: 200px;
+	text-align: right;
+	top: 4px;
+	right: 2px;
 }
 
 form li.placemarks {
-	left: 400px;
-}
-
-form input[type=submit] {
-	width: 600px;
-	height: 50px;
-	font-size: 1.2em;
-	font-family: 'Varela Round', sans-serif;
-	position: absolute;
-	top: 130px;
-	left: 0px;
-	background-color: rgb(180,180,180);
-	z-index: 2;
-}
-
-form li ul {
-	padding-left: 20px;
-	padding-top: 10px;
-}
-
-form input[type=radio] {
-	display: none;
-}
-
-input[type=radio]:checked + label { 
-	color: rgb(242,242,242);
+	top: 402px;
+	left: -1px;
 }
 
 form li.zoom {
+	display: none;
+}
+
+/* Titles of the sections (where, design, etc) */
+form .label {
 	display: none;
 }
 
@@ -176,10 +146,59 @@ form input[type=text] {
 	display: none;
 }
 
+form input[type=submit] {
+	top: -26px;
+	right: 0px;
+	padding: 2px 5px 2px 20px;
+	font-size: 0.9em;
+	background-color: white;
+	border: solid 1px black;
+}
 
+/* radio button trick */
+form input[type=radio] {
+	display: none;
+}
+input[type=radio]:checked + label { 
+	color: red;
+}
+
+/* "Get coordinates" button for debug */
 form input[type=button] {
 	position: absolute;
-	top: 95px;
-	left: 420px;
-	/*display: none; // for debug*/
+	top: 402px;
+	right: 0;
 }
+
+/* FOOTER */
+
+footer {
+	font-size: 0.5em;
+	border-top: 1px solid black;
+}
+
+footer h5 {
+	margin: 10px 0 -6px 0;
+}
+
+/* Underline trick */
+footer a {
+	text-decoration: none;
+	position: relative;
+}
+footer a:after {
+    content: '';
+
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: gray;
+}
+
+
+
+

@@ -76,6 +76,13 @@ def shutdown_session(exception=None):
     db.session.remove()
 
 
+@app.context_processor
+def values_for_all_templates():
+    return dict(
+        bucket_name = AWS_BUCKET_NAME,
+        )
+
+
 ###
 ### controllers: main pages
 ###
@@ -96,7 +103,6 @@ def archive():
 
     return render_template('archive.html',
             map_list    = update_map_list()[0],
-            bucket_name = AWS_BUCKET_NAME
             )
 
 
@@ -157,9 +163,7 @@ def detail(map_id):
 
     ## get map object from the database
     m = db.session.query(Map).filter(Map.id == map_id).one()
-    return render_template('detail.html',
-            map         = m,
-            bucket_name = AWS_BUCKET_NAME)
+    return render_template('detail.html', map = m)
 
 
 

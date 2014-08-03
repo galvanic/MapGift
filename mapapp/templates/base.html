@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
   <title>{% block title %}{% endblock %}</title>
 
@@ -13,29 +11,30 @@
 </head>
 
 <body>
+
   <header>
     <ul>
-      <li><a href="{{ url_for('index') }}">Make a new map</a></li>
-      <li><a href="{{ url_for('archive') }}">Maps already made</a>
-        <ul>
-          <li>London</li>
-          <li>Paris</li>
-          <li>Stockholm</li>
-        </ul>
-      </li>
-      <!-- Oooh could filter maps in archive by location -->
+      {% if request.path != url_for('index') and request.path != '/' %}
+      <li><a href="{{ url_for('index') }}">Map Making</a></li>
+      {% endif %}
+      {% if request.path != url_for('archive') %}
+      <li><a href="{{ url_for('archive') }}">Map Archive</a></li>
+      {% endif %}
     </ul>
   </header>
 
   <div id="content">{% block content %}{% endblock %}</div>
 
+  {% if request.path != url_for('index') and request.path != '/' %}
   <footer>
-    <h2>Attribution</h2>
+    <h5>Attribution</h5>
     <p>
-      Some of the map designs provided by this program are © Stamen Design, under a Creative Commons Attribution (CC BY 3.0) license:
+      Some of the map designs provided by this web application are © Stamen Design, under a Creative Commons Attribution (CC BY 3.0) license:
       Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>.
       Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
     </p>
   </footer>
+  {% endif %}
+
 </body>
 </html>

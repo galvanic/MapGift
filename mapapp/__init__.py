@@ -7,7 +7,11 @@ app = Flask(__name__)
 
 ### Database stuff
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+try:
+	app.config['DEBUG'] = os.environ.get('HEROKU_DEBUG_STATUS')
+except:
+	app.config['DEBUG'] = False
 
 from models import db
 
