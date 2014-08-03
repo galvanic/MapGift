@@ -58,9 +58,13 @@ mapapp/mapgift.py -vsi -a london -p toner -z 12
 Future improvements
 -------------------
 - fix the confusion over "zoom level" and "amount of detail"
+- when i click and drag the map, hide the 'design' and 'where' form options (or make them translucid)
+- change form options on mouseover
+- preview of map tile style on mouseover of 'design' form options
 - change javascript map provider
-- more interactivity
-- Refactor `mapgift.py` module
+- refactor `mapgift.py` module
+- implement a lot more control over placemarks, more fine tuning
+- responsive design (esp for showing archive page on phone)
 
 
 Attribution
