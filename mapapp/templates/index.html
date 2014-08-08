@@ -89,6 +89,7 @@
 
 	var map = new mxn.Mapstraction('map', 'googlev3'); 
 	var latlon = places["London"];
+	var labels = $('form>ul>li>ul label')
 
 	map.setCenterAndZoom(latlon, 10);
 	map.addControls({ pan: false, zoom: 'large' || 'small', overview: false, scale: false, map_type: false });
@@ -97,6 +98,22 @@
 
 	var mapcentre = map.getCenter().toString();
 	var mapzoom = map.getZoom().toString();
+
+	document.getElementById('map').addEventListener('mouseover', function(event) {
+		for (var i = labels.length - 1; i >= 0; i--) {
+			labels[i].style.opacity = 0.5;
+		};
+	});
+
+	document.getElementById('map').addEventListener('mouseout', function(event) {
+		for (var i = labels.length - 1; i >= 0; i--) {
+			labels[i].style.opacity = 1;
+		};
+	});
+
+	document.getElementById('map').addEventListener('drag', function(event) {
+		$('body')[0].style.backgroundColor = 'red';
+	});
 
 	map.endPan.addHandler(function(eventName, eventSource, eventArgs) {
 		// map panning complete
@@ -108,14 +125,14 @@
 		mapzoom = map.getZoom().toString();
 	});
 
-	document.getElementById("disp").addEventListener("click", function(event) {
+	document.getElementById('disp').addEventListener('click', function(event) {
 		alert(mapcentre);
 	});
 
 	function mySubmit() {
-		document.getElementById("mapcentreField").value = mapcentre;
-		document.getElementById("mapzoomField").value = mapzoom;
-		document.getElementById("myForm").submit();
+		document.getElementById('mapcentreField').value = mapcentre;
+		document.getElementById('mapzoomField').value = mapzoom;
+		document.getElementById('myForm').submit();
 	};
 
 	function changeCentre(latlon) {

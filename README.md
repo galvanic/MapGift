@@ -57,6 +57,8 @@ mapapp/mapgift.py -vsi -a london -p toner -z 12
 
 Future improvements
 -------------------
+- make an admin page to delete maps
+	- or learn how to do it so that it sends right away (eg. deleting on pocket)
 - fix the confusion over "zoom level" and "amount of detail"
 - when i click and drag the map, hide the 'design' and 'where' form options (or make them translucid)
 - change form options on mouseover

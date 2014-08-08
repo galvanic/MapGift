@@ -41,7 +41,14 @@ header li a, form > ul > li > ul> li > label {
 	color: white;
 	display: inline-block;
 	padding: 2px 5px 2px 20px;
-	margin: 1px;
+	margin: 1px 2px 0 2px;
+	border: solid 1px white;
+}
+
+header li a:hover, form > ul > li > ul> li > label:hover {
+	background-color: white;
+	color: black;
+	border: solid 1px black;
 }
 
 /* MENU BAR */
@@ -113,19 +120,26 @@ form > ul > li, form input[type=submit] {
 	position: absolute;
 }
 
-form > ul > li.design {
-	/*width: 1px;*/
+form > ul > li > ul label {
+	transition: opacity .5s ease-out;
+	-moz-transition: opacity .5s ease-out;
+	-webkit-transition: opacity .5s ease-out;
+	-o-transition: opacity .5s ease-out;
 }
 
 form li.where {
-	top: 332px;
-	width: 1px;
+	top: 327px;
 }
 
 form li.design {
 	text-align: right;
 	top: 4px;
 	right: 2px;
+}
+
+form li.design li label {
+	padding-left: 5px;
+	padding-right: 20px;
 }
 
 form li.placemarks {
@@ -160,7 +174,17 @@ form input[type=radio] {
 	display: none;
 }
 input[type=radio]:checked + label { 
-	color: red;
+	position: relative;
+	background-color: white;
+	color: black;
+	border: solid 1px black;
+}
+
+li.design input[type=radio]:checked + label { 
+	right: -15px;
+}
+li.where input[type=radio]:checked + label { 
+	left: -15px;
 }
 
 /* "Get coordinates" button for debug */
@@ -187,16 +211,16 @@ footer a {
 	position: relative;
 }
 footer a:after {
-    content: '';
+	content: '';
 
-    width: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0px;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0px;
 
-    border-width: 0 0 1px;
-    border-style: solid;
-    border-color: gray;
+	border-width: 0 0 1px;
+	border-style: solid;
+	border-color: gray;
 }
 
 
