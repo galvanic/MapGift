@@ -111,10 +111,10 @@ def assemble():
 
     ## get info from the form in the index page
     map_id = int(request.form['map_id'])
-    design = request.form['design']
+    design = str(request.form['design'])
     zoom   = int(request.form['zoom2'])
-    coord  = request.form['coord']
-    coord  = tuple(map(float, coord.split(', ')))
+    coord  = str(request.form['coord'])
+    coord  = tuple(float(x.strip()) for x in coord.split(','))
     if request.files:
         # need to check this file [security] TODO FIXME
         kmlfile = request.files['placemarks'].read()

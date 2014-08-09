@@ -2,7 +2,6 @@
 {% block title %}index{% endblock %}
 {% block content %}
 
-
 <div id='map'></div>
 
 <form action="{{ url_for('assemble') }}" method='post' enctype='multipart/form-data' id="myForm">
@@ -19,7 +18,7 @@
 					<input type="text" />
 				</li>
 				<li>
-					<input type="radio" name="where" value="london" id="london" onchange="changeCentre('London')" />
+					<input type="radio" name="where" value="london" id="london" onclick="changeCentre('London')" />
 					<label for="london">London</label>
 				</li>
 				<li>
@@ -27,7 +26,7 @@
 					<label for="paris">Paris</label>
 				</li>
 				<li>
-					<input type="radio" name="where" value="stockholm" id="stockholm" onchange="changeCentre('Stockholm')" />
+					<input type="radio" name="where" value="stockholm" id="stockholm" onclick="changeCentre('Stockholm')" />
 					<label for="stockholm">Stockholm</label>
 				</li>
 			</ul>
@@ -72,60 +71,68 @@
 		</li>
 	</ul>
 
-	{% if config.debug %}
-	<input type="button" id="disp" value="Get coordinates" />
+	{% if config['DEBUG'] %}
+	<input type="button" id="get_coor" value="Get coordinates" />
 	{% endif %}
-	<input type="submit" id="generate-map" name="submit" value="Generate Map n°{{ next_map_id }}" onClick="mySubmit()" />
+	<input type="submit" id="generate-map" name="submit_button" value="Generate Map n°{{ next_map_id }}" onclick="mySubmit()" />
 </form>
 
 
 <script type="text/javascript">
 
+	var MM_proj = new OpenLayers.Projection('EPSG:4326');
+	var OpL_proj = new OpenLayers.Projection('EPSG:900913');
+
 	var places = {
-		"London":    new mxn.LatLonPoint(51.50733, -0.12769),
-		"Paris":     new mxn.LatLonPoint(48.8567,	2.3508),
-		"Stockholm": new mxn.LatLonPoint(59.329444, 18.068611)
+		'London':    new OpenLayers.LonLat(-0.12769, 51.50733)
+			.transform(MM_proj, OpL_proj),
+		'Paris':     new OpenLayers.LonLat(2.3508, 48.8567)
+			.transform(MM_proj, OpL_proj),
+		'Stockholm': new OpenLayers.LonLat(18.068611, 59.329444)
+			.transform(MM_proj, OpL_proj)
 	};
 
-	var map = new mxn.Mapstraction('map', 'googlev3'); 
-	var latlon = places["London"];
-	var labels = $('form>ul>li>ul label')
-
-	map.setCenterAndZoom(latlon, 10);
-	map.addControls({ pan: false, zoom: 'large' || 'small', overview: false, scale: false, map_type: false });
-	map.enableScrollWheelZoom();
-	map.addSmallControls();
-
-	var mapcentre = map.getCenter().toString();
-	var mapzoom = map.getZoom().toString();
-
-	document.getElementById('map').addEventListener('mouseover', function(event) {
-		for (var i = labels.length - 1; i >= 0; i--) {
-			labels[i].style.opacity = 0.5;
-		};
-	});
-
-	document.getElementById('map').addEventListener('mouseout', function(event) {
-		for (var i = labels.length - 1; i >= 0; i--) {
-			labels[i].style.opacity = 1;
-		};
-	});
-
-	document.getElementById('map').addEventListener('drag', function(event) {
-		$('body')[0].style.backgroundColor = 'red';
-	});
-
-	map.endPan.addHandler(function(eventName, eventSource, eventArgs) {
-		// map panning complete
-		mapcentre = map.getCenter().toString();
-	});
-
-	map.changeZoom.addHandler(function(eventName, eventSource, eventArgs) {
-		// map zooming complete
+	function updateMeasuredCoordinates() {
+		mapcentre = map.getCenter()
+			.transform(map.getProjection(), MM_proj);
+		mapcentre = mapcentre.lat + ',' + mapcentre.lon;
 		mapzoom = map.getZoom().toString();
+	}
+
+	var labels = $('form>ul>li>ul label');
+
+	function changeLabelsOpacity(opacity_level) {
+		for (var i = labels.length - 1; i >= 0; i--) {
+			labels[i].style.opacity = opacity_level;
+		};
+	}
+	
+	// define custom map event listeners
+	function mapPanStarts (event) {
+		changeLabelsOpacity(0.3);
+	}
+	function mapPanEnds (event) {
+		changeLabelsOpacity(1);
+		updateMeasuredCoordinates();
+	}
+	function mapZoomEnds (event) {
+		updateMeasuredCoordinates();
+	}
+
+	var map = new OpenLayers.Map('map', {
+		eventListeners: {
+			'movestart': mapPanStarts,
+			'moveend': mapPanEnds,
+			'zoomend': mapZoomEnds,
+		},
 	});
 
-	document.getElementById('disp').addEventListener('click', function(event) {
+	var layer = new OpenLayers.Layer.Stamen('toner-background');
+	map.addLayer(layer);
+
+	changeCentre('London', 1);
+
+	document.getElementById('get_coor').addEventListener('click', function(event) {
 		alert(mapcentre);
 	});
 
@@ -135,9 +142,9 @@
 		document.getElementById('myForm').submit();
 	};
 
-	function changeCentre(latlon) {
-		map.setCenter(places[latlon]);
-		mapcentre = map.getCenter().toString();
+	function changeCentre(area_name, zoom) {
+		if(typeof(zoom) === 'undefined') zoom = 11;
+		map.setCenter(places[area_name], zoom);
 	};
 
 </script>

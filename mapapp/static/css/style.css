@@ -12,9 +12,10 @@ gray99
 
 body {
 	font-size: 0.9em;
-	background-color: WeddingVeil;
+	background-color: WhiteSmoke;
 	width: 604px;
 	margin: auto;
+	margin-bottom: 50px;
 	padding-top: 50px;
 	font-family: Helvetica, sans-serif;
 }
@@ -30,7 +31,7 @@ a {
 	text-decoration: none;
 }
 
-div#content a, footer a {
+div#content p a, footer a {
 	text-decoration: underline;
 }
 
@@ -77,6 +78,20 @@ div#map {
 	z-index: -1;
 }
 
+div#OpenLayers_Control_Zoom_5 {
+	padding: 0;
+}
+
+div#OpenLayers_Control_Zoom_5 a {
+	background-color: white;
+	color: black;
+	font-size: 14px;
+}
+
+div#OpenLayers_Control_Attribution_7 {
+	display: none;
+}
+
 /*These are the images in the Archive*/
 #content > ol > li img {
 	width: 300px;
@@ -121,10 +136,10 @@ form > ul > li, form input[type=submit] {
 }
 
 form > ul > li > ul label {
-	transition: opacity .5s ease-out;
-	-moz-transition: opacity .5s ease-out;
-	-webkit-transition: opacity .5s ease-out;
-	-o-transition: opacity .5s ease-out;
+	transition: opacity .4s ease-out;
+	-moz-transition: opacity .4s ease-out;
+	-webkit-transition: opacity .4s ease-out;
+	-o-transition: opacity .4s ease-out;
 }
 
 form li.where {
@@ -194,7 +209,7 @@ form input[type=button] {
 	right: 0;
 }
 
-/* FOOTER */
+/* FOOTER attribution text */
 
 footer {
 	font-size: 0.5em;
