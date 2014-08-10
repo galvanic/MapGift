@@ -3,14 +3,18 @@ $(document).ready(function(){
 	var MM_proj = new OpenLayers.Projection('EPSG:4326');
 	var OpL_proj = new OpenLayers.Projection('EPSG:900913');
 
-	var places = {
-		'london':    new OpenLayers.LonLat(-0.12769, 51.50733)
-			.transform(MM_proj, OpL_proj),
-		'paris':     new OpenLayers.LonLat(2.3508, 48.8567)
-			.transform(MM_proj, OpL_proj),
-		'stockholm': new OpenLayers.LonLat(18.068611, 59.329444)
-			.transform(MM_proj, OpL_proj)
-	};
+	var places = {}
+
+	$.each( $('form li.where input[type="radio"]'), function(i, radio) {
+		var name = this.id;
+		var coor = $(this).attr('coor');
+		var coor = JSON.parse(coor.replace('(','[').replace(')',']'));
+		places[name] = new OpenLayers.LonLat(coor[1], coor[0])
+			.transform(MM_proj, OpL_proj);
+	});
+
+	var distance = parseInt($('div#map').css('height'))-Object.keys(places).length*23 - 3;
+	$('form li.where').css('top', distance + 'px')
 
 	function updateMeasuredCoordinates() {
 		mapcentre = map.getCenter()

@@ -60,7 +60,7 @@ header li a {
 }
 
 header ul {
-	margin-bottom: 1px;
+	margin-bottom: 2px;
 }
 
 header li {
@@ -143,7 +143,7 @@ form > ul > li > ul label {
 }
 
 form li.where {
-	top: 327px;
+	top: 4px;
 }
 
 form li.design {

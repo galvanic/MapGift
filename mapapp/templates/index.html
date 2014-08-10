@@ -17,18 +17,12 @@
 				<li>
 					<input type="text" />
 				</li>
+				{% for area_name, coor in places.iteritems() %}
 				<li>
-					<input type="radio" name="where" value="london" id="london" />
-					<label for="london">London</label>
+					<input type="radio" name="where" value="{{ area_name }}" id="{{ area_name }}" coor="{{ coor }}" />
+					<label for="{{ area_name }}">{{ area_name|title }}</label>
 				</li>
-				<li>
-					<input type="radio" name="where" value="paris" id="paris" />
-					<label for="paris">Paris</label>
-				</li>
-				<li>
-					<input type="radio" name="where" value="stockholm" id="stockholm" />
-					<label for="stockholm">Stockholm</label>
-				</li>
+				{% endfor %}
 			</ul>
 		</li>
 	
@@ -50,10 +44,10 @@
 			<!-- Dynamically generate this map provider list from the mapgift.py file -->
 			<div class="label">Design</div>
 			<ul>
-				{% for shortcut, name in providers.iteritems() %}
+				{% for short_name, name in providers.iteritems() %}
 				<li>
-					<input type="radio" name="design" value="{{ shortcut }}" id="{{ shortcut }}" />
-					<label for="{{ shortcut }}">{{ shortcut|title }}</label>
+					<input type="radio" name="design" value="{{ short_name }}" id="{{ short_name }}" />
+					<label for="{{ short_name }}">{{ short_name|title }}</label>
 				</li>
 				{% endfor %}
 			</ul>

@@ -93,6 +93,7 @@ def values_for_all_templates():
 def index():
 
     return render_template('index.html',
+            places      = mapgift.PLACES,
             providers   = mapgift.PROVIDERS,
             next_map_id = update_map_list()[1]
             )
