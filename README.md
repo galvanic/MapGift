@@ -59,9 +59,6 @@ Future improvements
 -------------------
 - make an admin page to delete maps
 	- or learn how to do it so that it sends right away (eg. deleting on pocket)
-- fix the confusion over "zoom level" and "amount of detail"
-- when i click and drag the map, hide the 'design' and 'where' form options (or make them translucid)
-- change form options on mouseover
 - preview of map tile style on mouseover of 'design' form options
 - change javascript map provider
 - refactor `mapgift.py` module
