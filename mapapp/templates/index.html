@@ -18,15 +18,15 @@
 					<input type="text" />
 				</li>
 				<li>
-					<input type="radio" name="where" value="london" id="london" onclick="changeCentre('London')" />
+					<input type="radio" name="where" value="london" id="london" />
 					<label for="london">London</label>
 				</li>
 				<li>
-					<input type="radio" name="where" value="paris" id="paris" onclick="changeCentre('Paris')" />
+					<input type="radio" name="where" value="paris" id="paris" />
 					<label for="paris">Paris</label>
 				</li>
 				<li>
-					<input type="radio" name="where" value="stockholm" id="stockholm" onclick="changeCentre('Stockholm')" />
+					<input type="radio" name="where" value="stockholm" id="stockholm" />
 					<label for="stockholm">Stockholm</label>
 				</li>
 			</ul>
@@ -73,8 +73,10 @@
 
 	{% if config['DEBUG'] %}
 	<input type="button" id="get_coor" value="Get coordinates" />
+	{% else %}
+	<input type="hidden" id="get_coor" />
 	{% endif %}
-	<input type="submit" id="generate-map" name="submit_button" value="Generate Map n°{{ next_map_id }}" onclick="mySubmit()" />
+	<input type="submit" id="generate-map" name="submit_button" value="Generate Map n°{{ next_map_id }}" />
 </form>
 
 {% endblock %}

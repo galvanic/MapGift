@@ -4,11 +4,11 @@ $(document).ready(function(){
 	var OpL_proj = new OpenLayers.Projection('EPSG:900913');
 
 	var places = {
-		'London':    new OpenLayers.LonLat(-0.12769, 51.50733)
+		'london':    new OpenLayers.LonLat(-0.12769, 51.50733)
 			.transform(MM_proj, OpL_proj),
-		'Paris':     new OpenLayers.LonLat(2.3508, 48.8567)
+		'paris':     new OpenLayers.LonLat(2.3508, 48.8567)
 			.transform(MM_proj, OpL_proj),
-		'Stockholm': new OpenLayers.LonLat(18.068611, 59.329444)
+		'stockholm': new OpenLayers.LonLat(18.068611, 59.329444)
 			.transform(MM_proj, OpL_proj)
 	};
 
@@ -39,6 +39,7 @@ $(document).ready(function(){
 		updateMeasuredCoordinates();
 	}
 
+	// initialise map
 	var map = new OpenLayers.Map('map', {
 		eventListeners: {
 			'movestart': mapPanStarts,
@@ -50,11 +51,23 @@ $(document).ready(function(){
 	var layer = new OpenLayers.Layer.Stamen('toner-background');
 	map.addLayer(layer);
 
-	changeCentre('London', 1);
+	changeCentre('london', 9);
+
+
+	function changeCentre(area_name, zoom) {
+		if(typeof(zoom) === 'undefined') zoom = 11;
+		map.setCenter(places[area_name.toLowerCase()], zoom);
+	};
+
+	$('form li.where input[type="radio"]').click( function(event) {
+		changeCentre(this.id);
+	});
+
 
 	document.getElementById('get_coor').addEventListener('click', function(event) {
 		alert(mapcentre);
 	});
+
 
 	function mySubmit() {
 		document.getElementById('mapcentreField').value = mapcentre;
@@ -62,9 +75,9 @@ $(document).ready(function(){
 		document.getElementById('myForm').submit();
 	};
 
-	function changeCentre(area_name, zoom) {
-		if(typeof(zoom) === 'undefined') zoom = 11;
-		map.setCenter(places[area_name], zoom);
-	};
+	document.getElementById('generate-map').addEventListener('click', function(event) {
+		mySubmit();
+	});
+
 
 });
