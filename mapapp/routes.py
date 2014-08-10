@@ -112,7 +112,12 @@ def assemble():
     ## get info from the form in the index page
     map_id = int(request.form['map_id'])
     design = str(request.form['design'])
-    zoom   = int(request.form['zoom2'])
+    # add 1 to zoom level because generated image is
+    # double the size of the index map, so since the generated
+    # image is based on centre instead of box,
+    # zoom needs to be 1 level more. This also means the level of
+    # detail will be greater
+    zoom   = int(request.form['zoom2'])+1
     coord  = str(request.form['coord'])
     coord  = tuple(float(x.strip()) for x in coord.split(','))
     if request.files:

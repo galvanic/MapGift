@@ -51,7 +51,7 @@ $(document).ready(function(){
 	var layer = new OpenLayers.Layer.Stamen('toner-background');
 	map.addLayer(layer);
 
-	changeCentre('london', 9);
+	changeCentre('london', 1);
 
 
 	function changeCentre(area_name, zoom) {
