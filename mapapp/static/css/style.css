@@ -37,7 +37,7 @@ div#content p a, footer a {
 
 /* THE BLACK LABEL STYLE */
 
-header li a, form > ul > li > ul> li > label {
+header li a, form > ul > li > ul> li > label, form li.where input[type=button] {
 	background-color: black;
 	color: white;
 	display: inline-block;
@@ -46,7 +46,7 @@ header li a, form > ul > li > ul> li > label {
 	border: solid 1px white;
 }
 
-header li a:hover, form > ul > li > ul> li > label:hover {
+header li a:hover, form > ul > li > ul> li > label:hover, form li.where input[type=button]:hover {
 	background-color: white;
 	color: black;
 	border: solid 1px black;
@@ -175,11 +175,14 @@ form input[type=text] {
 	display: none;
 }
 
+form input[type=submit], form li.where input[type=button] {
+	padding: 2px 5px 2px 20px;
+	font-size: 0.9em;
+}
+
 form input[type=submit] {
 	top: -26px;
 	right: 0px;
-	padding: 2px 5px 2px 20px;
-	font-size: 0.9em;
 	background-color: white;
 	border: solid 1px black;
 }
@@ -198,12 +201,12 @@ input[type=radio]:checked + label {
 li.design input[type=radio]:checked + label { 
 	right: -15px;
 }
-li.where input[type=radio]:checked + label { 
+li.where input[type=radio]:checked + label, li.where input[type=button]:active { 
 	left: -15px;
 }
 
 /* "Get coordinates" button for debug */
-form input[type=button] {
+form input[type=button]#get_coor {
 	position: absolute;
 	top: 402px;
 	right: 0;

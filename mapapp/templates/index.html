@@ -19,10 +19,13 @@
 				</li>
 				{% for area_name, coor in places.iteritems() %}
 				<li>
-					<input type="radio" name="where" value="{{ area_name }}" id="{{ area_name }}" coor="{{ coor }}" />
+					<input type="radio" name="where" value="{{ area_name }}" id="{{ area_name }}" data-lat="{{ coor[0] }}" data-lon="{{ coor[1] }}" />
 					<label for="{{ area_name }}">{{ area_name|title }}</label>
 				</li>
 				{% endfor %}
+				<li>
+					<input type="button" id="current-location" value="Here" />
+				</li>
 			</ul>
 		</li>
 	

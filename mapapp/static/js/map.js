@@ -1,19 +1,42 @@
 $(document).ready(function(){
 
+
 	var MM_proj = new OpenLayers.Projection('EPSG:4326');
 	var OpL_proj = new OpenLayers.Projection('EPSG:900913');
 
+
+	if ("geolocation" in navigator) {
+		/* geolocation is available */
+		navigator.geolocation.getCurrentPosition( function(position) {
+			$('#current-location').click( function(event) {
+				var here = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
+			.transform(MM_proj, OpL_proj);
+				map.setCenter(here, 14);
+				// uncheck all the places
+				uncheckAllRadios('where');
+			});
+		});
+	} else {
+		$('#current-location').hide();
+	}
+
 	var places = {}
 
-	$.each( $('form li.where input[type="radio"]'), function(i, radio) {
+	$('form li.where input[type=radio]').each( function(i, radio) {
 		var name = this.id;
-		var coor = $(this).attr('coor');
-		var coor = JSON.parse(coor.replace('(','[').replace(')',']'));
-		places[name] = new OpenLayers.LonLat(coor[1], coor[0])
+		var data = $(this).data();
+		places[name] = new OpenLayers.LonLat(data.lon, data.lat)
 			.transform(MM_proj, OpL_proj);
 	});
 
-	var distance = parseInt($('div#map').css('height'))-Object.keys(places).length*23 - 3;
+	function uncheckAllRadios(className) {
+		$('form li.' + className + ' input[type=radio]').each( function(i, radio) {
+			this.checked = false;
+		});
+	}
+
+	// Place the area list correctly in bottom left corner
+	var distance = parseInt($('div#map').css('height'))-(Object.keys(places).length+1)*23 - 3;
 	$('form li.where').css('top', distance + 'px')
 
 	function updateMeasuredCoordinates() {
@@ -63,7 +86,7 @@ $(document).ready(function(){
 		map.setCenter(places[area_name.toLowerCase()], zoom);
 	};
 
-	$('form li.where input[type="radio"]').click( function(event) {
+	$('form li.where input[type=radio]').click( function(event) {
 		changeCentre(this.id);
 	});
 
