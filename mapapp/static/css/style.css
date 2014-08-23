@@ -135,7 +135,7 @@ form > ul > li, form input[type=submit] {
 	position: absolute;
 }
 
-form > ul > li > ul label {
+form > ul > li > ul label, form li.where input[type=button] {
 	transition: opacity .4s ease-out;
 	-moz-transition: opacity .4s ease-out;
 	-webkit-transition: opacity .4s ease-out;

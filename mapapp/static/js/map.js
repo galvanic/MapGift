@@ -46,7 +46,7 @@ $(document).ready(function(){
 		mapzoom = map.getZoom().toString();
 	}
 
-	var labels = $('form>ul>li>ul label');
+	var labels = $('form>ul>li>ul label, form li.where input[type=button]');
 
 	function changeLabelsOpacity(opacity_level) {
 		for (var i = labels.length - 1; i >= 0; i--) {
@@ -78,12 +78,13 @@ $(document).ready(function(){
 	var layer = new OpenLayers.Layer.Stamen('toner-background');
 	map.addLayer(layer);
 
-	changeCentre('london', 1);
+	changeCentre('london', 3);
 
 
 	function changeCentre(area_name, zoom) {
 		if(typeof(zoom) === 'undefined') zoom = 11;
 		map.setCenter(places[area_name.toLowerCase()], zoom);
+		console.log(places[area_name.toLowerCase()], zoom);
 	};
 
 	$('form li.where input[type=radio]').click( function(event) {
