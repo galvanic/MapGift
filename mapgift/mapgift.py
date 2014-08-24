@@ -574,7 +574,7 @@ def addViewport(map1, map_image, map2, thickness=1, colour='black', params=None)
 def main(map_provider, area, zoom, by_centre, kmlfile,
          ofilepath=None, verbose=False, show=False, interactive=False):
     """"""
-    placemark_params = ('circle', 50, 'transparent')
+    placemark_params = ('circle', 20, 'transparent')
 
     ## m is a map instance
     m = make_map(map_provider, area, zoom, by_centre, verbose=verbose)
