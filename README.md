@@ -12,17 +12,17 @@ The modules necessary to run this program are in `requirements.txt`. If you are 
 The <folder to clone to> is the folder in which all scripts of the program will be put.
 
 ```shell
-git clone https://github.com/Galvanic/MapGift.git <path of folder to clone to>
+git clone https://github.com/galvanic/MapGift.git <path of folder to clone to>
 cd <folder path cloned to>
-sudo pip install pillow
-sudo pip install modestmaps
+pip install pillow
+pip install modestmaps
 ./mapgift.py
 ```
 
 Getting Started
 ---------------
 
-**mapgift.py** takes the following flags:
+**mapgift.py** takes the following options:
 
 - **-p** map tile provider; choose from:
 
@@ -57,8 +57,6 @@ mapapp/mapgift.py -vsi -a london -p toner -z 12
 
 Future improvements
 -------------------
-- make an admin page to delete maps
-	- or learn how to do it so that it sends right away (eg. deleting on pocket)
 - preview of map tile style on mouseover of 'design' form options
 - change javascript map provider
 - refactor `mapgift.py` module
