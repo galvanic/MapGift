@@ -7,7 +7,7 @@
 
   {% if request.path == url_for('index') or request.path == '/' %}
   <script src="{{ url_for('static', filename='js/map.js') }}" type="text/javascript"></script>
-  <script src="http://openlayers.org/api/OpenLayers.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js"></script>
   <script type="text/javascript" src="https://stamen-maps.a.ssl.fastly.net/js/tile.stamen.js"></script>
   {% endif %}
 
@@ -33,8 +33,8 @@
     <h5>Attribution</h5>
     <p>
       Some of the map designs provided by this web application are © Stamen Design, under a Creative Commons Attribution (CC BY 3.0) license:
-      Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>.
-      Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.
+      Map tiles by <a href='http://stamen.com'>Stamen Design</a>, under <a href='https://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a>.
+      Data by <a href='https://www.openstreetmap.org'>OpenStreetMap</a>, under <a href='https://creativecommons.org/licenses/by-sa/3.0'>CC BY SA</a>.
     </p>
   </footer>
   {% endif %}
